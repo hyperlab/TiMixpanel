@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 0.1
+apiversion: 2
+description: Mixpanel integartion for Titanium Mobile
+author: Jonatan Lundin
+license: MIT
+copyright: Copyright (C) 2014 Hyperlab AB
+
+
+# these should not be edited
+name: TiMixpanel
+moduleid: se.hyperlab.mixpanel
+guid: 534f4d59-d4ea-4f21-bdc0-e9d1858c9c8f
+platform: iphone
+minsdk: 3.2.2.GA
