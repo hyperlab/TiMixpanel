@@ -18,155 +18,161 @@
 // this is generated for your module, please do not change it
 -(id)moduleGUID
 {
-	return @"534f4d59-d4ea-4f21-bdc0-e9d1858c9c8f";
+    return @"534f4d59-d4ea-4f21-bdc0-e9d1858c9c8f";
 }
 
 // this is generated for your module, please do not change it
 -(NSString*)moduleId
 {
-	return @"se.hyperlab.mixpanel";
+    return @"se.hyperlab.mixpanel";
 }
 
 #pragma mark Lifecycle
 
 -(void)startup
 {
-	// this method is called when the module is first loaded
-	// you *must* call the superclass
-	[super startup];
-	
-	NSLog(@"[INFO] %@ loaded",self);
+    // this method is called when the module is first loaded
+    // you *must* call the superclass
+    [super startup];
+    
+    NSLog(@"[INFO] %@ loaded",self);
 }
 
 -(void)shutdown:(id)sender
 {
-	// this method is called when the module is being unloaded
-	// typically this is during shutdown. make sure you don't do too
-	// much processing here or the app will be quit forceably
-	
-	// you *must* call the superclass
-	[super shutdown:sender];
+    // this method is called when the module is being unloaded
+    // typically this is during shutdown. make sure you don't do too
+    // much processing here or the app will be quit forceably
+    
+    // you *must* call the superclass
+    [super shutdown:sender];
 }
 
-#pragma mark Cleanup 
+#pragma mark Cleanup
 
 -(void)dealloc
 {
-	// release any resources that have been retained by the module
-	[super dealloc];
+    // release any resources that have been retained by the module
+    [super dealloc];
 }
 
 #pragma mark Internal Memory Management
 
 -(void)didReceiveMemoryWarning:(NSNotification*)notification
 {
-	// optionally release any resources that can be dynamically
-	// reloaded once memory is available - such as caches
-	[super didReceiveMemoryWarning:notification];
+    // optionally release any resources that can be dynamically
+    // reloaded once memory is available - such as caches
+    [super didReceiveMemoryWarning:notification];
 }
 
 #pragma mark Listener Notifications
 
 -(void)_listenerAdded:(NSString *)type count:(int)count
 {
-	if (count == 1 && [type isEqualToString:@"my_event"])
-	{
-		// the first (of potentially many) listener is being added 
-		// for event named 'my_event'
-	}
+    if (count == 1 && [type isEqualToString:@"my_event"])
+    {
+        // the first (of potentially many) listener is being added
+        // for event named 'my_event'
+    }
 }
 
 -(void)_listenerRemoved:(NSString *)type count:(int)count
 {
-	if (count == 0 && [type isEqualToString:@"my_event"])
-	{
-		// the last listener called for event named 'my_event' has
-		// been removed, we can optionally clean up any resources
-		// since no body is listening at this point for that event
-	}
+    if (count == 0 && [type isEqualToString:@"my_event"])
+    {
+        // the last listener called for event named 'my_event' has
+        // been removed, we can optionally clean up any resources
+        // since no body is listening at this point for that event
+    }
 }
 
 #pragma Public APIs
 
--(void)initWithToken:(id)args
+// Initialize Mixpanel
+// args[0] String: Mixpanel API Token
+- (void)initWithToken:(id)args
 {
-	ENSURE_SINGLE_ARG(args, NSString);
-    [Mixpanel sharedInstanceWithToken:(NSString *)args];
+    NSString *token = [TiUtils stringValue:[args objectAtIndex:0]];
+    NSLog(@"[DEBUG] Mixpanel initWithToken: %@", token);
+    [Mixpanel sharedInstanceWithToken:token];
 }
 
--(void)identify:(id)args
+// Identify current user
+// args[0] String: DistinctId
+- (void)identify:(id)args
 {
     NSString *value = [TiUtils stringValue:[args objectAtIndex:0]];
-    NSLog(@"[DEBUG] indentifyUser: %@", value);
+    NSLog(@"[DEBUG] Mixpanel indentify: %@", value);
     [[Mixpanel sharedInstance] identify:value];
 }
 
--(void)nameTag:(id)args
+// Create alias for generated DistinctId
+// args[0] String: Alias
+- (void)createAlias:(id)args
 {
-    NSString *value = [TiUtils stringValue:[args objectAtIndex:0]];
-    NSLog(@"[DEBUG] setNameTag: %@", value);
-    [[Mixpanel sharedInstance] setNameTag:value];
+    NSString *alias = [TiUtils stringValue:[args objectAtIndex:0]];
+    NSString *distinctId = [Mixpanel sharedInstance].distinctId;
+    [self createAliasForId:[NSArray arrayWithObjects:alias, distinctId, nil]];
 }
 
-//Register super props
-//args[0]: Properties
--(void)registerSuperProperties:(id)args
+// Create alias for arbitrary DistinctId
+// args[0] String: Alias
+// args[1] String: DistinctId
+- (void)createAliasForId:(id)args
 {
-    NSDictionary *props =  [args objectAtIndex:0];
+    NSString *alias = [TiUtils stringValue:[args objectAtIndex:0]];
+    NSString *distinctId = [TiUtils stringValue:[args objectAtIndex:1]];
     
-    NSLog(@"[DEBUG] Setting Super props");
-    
-    if (props==nil)
-    {
-        NSLog(@"[ERROR] Mixpanel SuperProperties missing");
-    }
-    else
-    {
-        [[Mixpanel sharedInstance] registerSuperProperties:props];
-    }
+    NSLog(@"[DEBUG] Mixpanel createAlias: %@ forDistinctId: %@", alias, distinctId);
+    [[Mixpanel sharedInstance] createAlias:alias forDistinctID:distinctId];
 }
 
-//Register super props once
-//args[0]: Properties
--(void)registerSuperPropertiesOnce:(id)args
+// Getter for generated DistinctId
+- (NSString *)distinctId
 {
-    NSDictionary *props =  [args objectAtIndex:0];
-    
-    NSLog(@"[DEBUG] Setting SuperPropertiesOnce");
-    
-    if (props==nil)
-    {
-        NSLog(@"[ERROR] Mixpanel Super Properties missing");
-    }
-    else
-    {
-        [[Mixpanel sharedInstance] registerSuperPropertiesOnce:props];
-    }
+    return [NSString stringWithString:[Mixpanel sharedInstance].distinctId];
 }
 
-//Track an event.
-//args[0]: str event
-//args[1]: (opt) dict of properties to send along with event
--(void)track:(id)args
+// Register super props once
+// args[0] Dictionary: Properties
+- (void)registerSuperProperties:(id)args
 {
-    NSString *event = [TiUtils stringValue:[args objectAtIndex:0]];
-	NSDictionary *props = nil;
+    ENSURE_DICT([args objectAtIndex:0]);
+    NSDictionary *props = [args objectAtIndex:0];
     
-    NSLog(@"[DEBUG] Tracking Event: %@", event);
+    NSLog(@"[DEBUG] Mixpanel registerSuperProperties (%@)", [props description]);
+    [[Mixpanel sharedInstance] registerSuperProperties:props];
+}
+
+// Register super props once
+// args[0] Dictionary: Properties
+- (void)registerSuperPropertiesOnce:(id)args
+{
+    ENSURE_DICT([args objectAtIndex:0]);
+    NSDictionary *props = [args objectAtIndex:0];
     
-	if ([args count] > 1)
-	{
-		props = [args objectAtIndex:1];
-	}
+    NSLog(@"[DEBUG] Mixpanel registerSuperPropertiesOnce (%@)", [props description]);
+    [[Mixpanel sharedInstance] registerSuperPropertiesOnce:props];
+}
+
+// Track an event
+// args[0] String: Event Name
+// args[1] Dictionary: Optional properties to send along with event
+- (void)track:(id)args
+{
+    NSString *event;
+    NSDictionary *props;
     
-	if (props==nil)
-	{
+    ENSURE_ARG_OR_NIL_AT_INDEX(event, args, 0, NSString);
+    ENSURE_ARG_OR_NIL_AT_INDEX(props, args, 1, NSDictionary);
+    
+    if (props==nil) {
+        NSLog(@"[DEBUG] Mixpanel Track Event: %@", event);
         [[Mixpanel sharedInstance] track:event];
-	}
-	else
-	{
+    } else {
+        NSLog(@"[DEBUG] Mixpanel Track Event: %@ (%@)", event, [props description]);
         [[Mixpanel sharedInstance] track:event properties:props];
-	}
+    }
 }
 
 
