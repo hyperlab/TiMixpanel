@@ -40,3 +40,32 @@ button.addEventListener('click', function () {
     'Custom Prop': 'value' 
   });
 });
+
+
+// User Profiles
+mixpanel.profileSet({
+  '$name': 'Full Name',
+  '$email': 'test@example.com',
+
+  key: 'value',
+  special: 'once',
+  num: 2,
+  list: ['a']
+});
+mixpanel.profileSetOnce({
+  special: 'twice', // Wont update key
+});
+
+
+mixpanel.profileIncrement({
+  num: 1 // To a total of 3
+});
+mixpanel.profileAppend({
+  list: ['b', 'c']
+});
+
+mixpanel.profileTrackCharge(150);
+mixpanel.profileTrackCharge(100, {
+  campaign: '123abc'
+});
+

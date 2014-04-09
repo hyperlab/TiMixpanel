@@ -175,5 +175,82 @@
     }
 }
 
+// Set props in user profile
+// args[0] Dictionary: Properties
+- (void)profileSet:(id)args
+{
+    ENSURE_DICT([args objectAtIndex:0]);
+    NSDictionary *props = [args objectAtIndex:0];
+
+    NSLog(@"[DEBUG] Mixpanel People Set %@", [props description]);
+    [[Mixpanel sharedInstance].people set:props];
+}
+
+// Set props in user profile once
+// args[0] Dictionary: Properties
+- (void)profileSetOnce:(id)args
+{
+    ENSURE_DICT([args objectAtIndex:0]);
+    NSDictionary *props = [args objectAtIndex:0];
+
+    NSLog(@"[DEBUG] Mixpanel People Set %@", [props description]);
+    [[Mixpanel sharedInstance].people setOnce:props];
+}
+
+// Append props in user profile
+// args[0] Dictionary: Properties
+- (void)profileAppend:(id)args
+{
+    ENSURE_DICT([args objectAtIndex:0]);
+    NSDictionary *props = [args objectAtIndex:0];
+
+    NSLog(@"[DEBUG] Mixpanel People Append %@", [props description]);
+    [[Mixpanel sharedInstance].people append:props];
+}
+
+// Increment props in user profile
+// args[0] Dictionary: Properties
+- (void)profileIncrement:(id)args
+{
+    ENSURE_DICT([args objectAtIndex:0]);
+    NSDictionary *props = [args objectAtIndex:0];
+
+    NSLog(@"[DEBUG] Mixpanel People Increment %@", [props description]);
+    [[Mixpanel sharedInstance].people increment:props];
+}
+
+// Track charge
+// args[0] Number: Charge
+// args[1] Dictionary: Optional properties
+- (void)profileTrackCharge:(id)args
+{
+    NSNumber *charge;
+    NSDictionary *props;
+
+    ENSURE_ARG_AT_INDEX(charge, args, 0, NSNumber);
+    ENSURE_ARG_OR_NIL_AT_INDEX(props, args, 1, NSDictionary);
+
+    if (props==nil) {
+        NSLog(@"[DEBUG] Mixpanel People Track Charge: %@", charge);
+        [[Mixpanel sharedInstance].people trackCharge:charge];
+    } else {
+        NSLog(@"[DEBUG] Mixpanel People Track Charge: %@ (%@)", charge, [props description]);
+        [[Mixpanel sharedInstance].people trackCharge:charge withProperties:props];
+    }
+}
+
+// Clear all charges
+- (void)profileClearCharges:(id)args
+{
+    NSLog(@"[DEBUG] Mixpanel People Clear Charges");
+    [[Mixpanel sharedInstance].people clearCharges];
+}
+
+// Delete User
+- (void)profileDeleteUser
+{
+    NSLog(@"[DEBUG] Mixpanel People Delete User");
+    [[Mixpanel sharedInstance].people deleteUser];
+}
 
 @end
