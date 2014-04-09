@@ -13,6 +13,15 @@ Add the module to you project, the latest version of the module can be found ins
 * Info is only delivered when the app is backgrounded/paused
 * Not all the API is exposed at the moment
 
+## Changes
+
+**0.2**
+- Methods for managing user identity
+- Code cleanup
+
+**0.1**
+- Initial release
+
 ## Author 
 
 **Jonatan Lundin**  
