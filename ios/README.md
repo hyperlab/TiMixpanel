@@ -17,6 +17,7 @@ Add the module to you project, the latest version of the module can be found ins
 
 **0.2**
 - Methods for managing user identity
+- People/profile tracking
 - Code cleanup
 
 **0.1**
