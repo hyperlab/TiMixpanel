@@ -163,7 +163,7 @@
     NSString *event;
     NSDictionary *props;
     
-    ENSURE_ARG_OR_NIL_AT_INDEX(event, args, 0, NSString);
+    ENSURE_ARG_AT_INDEX(event, args, 0, NSString);
     ENSURE_ARG_OR_NIL_AT_INDEX(props, args, 1, NSDictionary);
     
     if (props==nil) {
