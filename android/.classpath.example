@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="build/.apt_generated"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+
+  <!-- Replace ANDROID_SDK_PATH and HOME_PATH with your actual paths -->
+	
+  <classpathentry kind="lib" path="ANDROID_SDK_PATH/platforms/android-10/android.jar"/>
+	<classpathentry kind="lib" path="HOME_PATH/Library/Application Support/Titanium/mobilesdk/osx/3.2.2.GA/android/titanium.jar"/>
+	<classpathentry kind="lib" path="HOME_PATH/Library/Application Support/Titanium/mobilesdk/osx/3.2.2.GA/android/kroll-common.jar"/>
+	<classpathentry kind="lib" path="HOME_PATH/Library/Application Support/Titanium/mobilesdk/osx/3.2.2.GA/android/kroll-apt.jar"/>
+	
+  <classpathentry kind="lib" path="lib/Mixpanel-4.0.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
