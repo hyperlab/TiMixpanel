@@ -1,39 +1,71 @@
-// This is a test harness for your module
-// You should do something interesting in this harness 
-// to test out the module and to provide instructions 
-// to users on how to use it by example.
-
-
-// open a single window
+// Simple test UI
 var win = Ti.UI.createWindow({
-	backgroundColor:'white'
+  backgroundColor:'white'
 });
-var label = Ti.UI.createLabel();
-win.add(label);
+var button = Ti.UI.createButton({
+  title: 'Track event'
+});
+win.add(button);
 win.open();
 
-// TODO: write your module tests here
-var TiMixpanel = require('se.hyperlab.mixpanel');
-Ti.API.info("module is => " + TiMixpanel);
 
-label.text = TiMixpanel.example();
+// Mixpanel test/demo code, mirrors the iOS API fairly well
+// See: https://mixpanel.com/help/reference/ios
 
-Ti.API.info("module exampleProp is => " + TiMixpanel.exampleProp);
-TiMixpanel.exampleProp = "This is a test value";
+var mixpanel = require('se.hyperlab.mixpanel');
+mixpanel.initWithToken('YOUR-TOKEN-GOES-HERE');
 
-if (Ti.Platform.name == "android") {
-	var proxy = TiMixpanel.createExample({
-		message: "Creating an example Proxy",
-		backgroundColor: "red",
-		width: 100,
-		height: 100,
-		top: 100,
-		left: 150
-	});
+Ti.API.log('Mixpanel distinctId: ' + mixpanel.distinctId);
 
-	proxy.printMessage("Hello world!");
-	proxy.message = "Hi world!.  It's me again.";
-	proxy.printMessage("Hello world!");
-	win.add(proxy);
-}
+// The same as: 
+// mixpanel.createAliasForId('NEW-TEST-ID', mixpanel.distinctId);
+mixpanel.createAlias('NEW-TEST-ID');
+
+mixpanel.identify('NEW-TEST-ID');
+Ti.API.log('Mixpanel distinctId: ' + mixpanel.distinctId);
+
+mixpanel.registerSuperProperties({
+  'Device Model': Ti.Platform.model,
+  'Application ID': Ti.App.id
+});
+
+mixpanel.registerSuperPropertiesOnce({
+  'Affiliate ID': '123abc' 
+});
+
+mixpanel.track('App Opened');
+
+button.addEventListener('click', function () {
+  mixpanel.track('Custom Event', { 
+    'Custom Prop': 'value' 
+  });
+});
+
+
+// User Profiles
+mixpanel.profileSet({
+  '$name': 'Full Name',
+  '$email': 'test@example.com',
+
+  key: 'value',
+  special: 'once',
+  num: 2,
+  list: ['a']
+});
+mixpanel.profileSetOnce({
+  special: 'twice', // Wont update key
+});
+
+
+mixpanel.profileIncrement({
+  num: 1 // To a total of 3
+});
+mixpanel.profileAppend({
+  list: ['b', 'c']
+});
+
+mixpanel.profileTrackCharge(150);
+mixpanel.profileTrackCharge(100, {
+  campaign: '123abc'
+});
 
