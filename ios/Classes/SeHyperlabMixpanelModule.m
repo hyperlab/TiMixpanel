@@ -253,4 +253,19 @@
     [[Mixpanel sharedInstance].people deleteUser];
 }
 
+// add the device token to receive pushnotifications
+- (void)addPushDeviceToken:(id)args
+{
+    NSString *value = [TiUtils stringValue:[args objectAtIndex:0]];
+    NSData *data = [value dataUsingEncoding:NSUTF8StringEncoding];
+    [[Mixpanel sharedInstance].people addPushDeviceToken:data];
+}
+
+// set the flush interval
+- (void)setFlushInterval:(id)args
+{
+    NSInteger *value = [TiUtils intValue:[args objectAtIndex:0]];
+    [Mixpanel sharedInstance].flushInterval = value;
+}
+
 @end
