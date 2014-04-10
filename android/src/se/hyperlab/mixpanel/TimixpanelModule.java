@@ -10,9 +10,12 @@ package se.hyperlab.mixpanel;
 
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
-
 import org.appcelerator.titanium.TiApplication;
 import org.appcelerator.kroll.common.Log;
+
+import android.content.Context;
+
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 @Kroll.module(name="Timixpanel", id="se.hyperlab.mixpanel")
 public class TimixpanelModule extends KrollModule
@@ -23,6 +26,8 @@ public class TimixpanelModule extends KrollModule
 
 	// You can define constants with @Kroll.constant, for example:
 	// @Kroll.constant public static final String EXTERNAL_NAME = value;
+	
+	private MixpanelAPI mixpanel;
 	
 	public TimixpanelModule()
 	{
@@ -38,24 +43,56 @@ public class TimixpanelModule extends KrollModule
 
 	// Methods
 	@Kroll.method
-	public String example()
+	public void initWithToken(@Kroll.argument String token)
 	{
-		Log.d(TAG, "example called");
-		return "hello world";
+		Log.d(TAG, "Mixpanel initWithToken: " + token);
+		mixpanel = MixpanelAPI.getInstance(TiApplication.getInstance(), token);
 	}
 	
+	@Kroll.method
+	public void identify(Object[] args) {}
+
+	@Kroll.method
+	public void createAlias(Object[] args) {}
+
+	@Kroll.method
+	public void createAliasForId(Object[] args) {}
+
+	@Kroll.method
+	public void registerSuperProperties(Object[] args) {}
+
+	@Kroll.method
+	public void registerSuperPropertiesOnce(Object[] args) {}
+
+	@Kroll.method
+	public void track(Object[] args) {}
+
+	@Kroll.method
+	public void profileSet(Object[] args) {}
+
+	@Kroll.method
+	public void profileSetOnce(Object[] args) {}
+
+	@Kroll.method
+	public void profileAppend(Object[] args) {}
+
+	@Kroll.method
+	public void profileIncrement(Object[] args) {}
+
+	@Kroll.method
+	public void profileTrackCharge(Object[] args) {}
+
+	@Kroll.method
+	public void profileClearCharges(Object[] args) {}
+
+	@Kroll.method
+	public void profileDeleteUser(Object[] args) {}
+
 	// Properties
 	@Kroll.getProperty
-	public String getExampleProp()
+	public String distinctId()
 	{
-		Log.d(TAG, "get example property");
-		return "hello world";
-	}
-	
-	
-	@Kroll.setProperty
-	public void setExampleProp(String value) {
-		Log.d(TAG, "set example property: " + value);
+		return mixpanel.getDistinctId();
 	}
 
 }
