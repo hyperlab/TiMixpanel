@@ -9,8 +9,6 @@
 #import "TiHost.h"
 #import "TiUtils.h"
 
-#import "Mixpanel.h"
-
 @implementation SeHyperlabMixpanelModule
 
 #pragma mark Internal
@@ -86,6 +84,14 @@
     }
 }
 
+#pragma MixpanelAPI Delegate
+
+- (BOOL)mixpanelWillFlush:(Mixpanel *)mixpanel
+{
+    NSLog(@"[DEBUG] Mixpanel will flush data");
+    return YES;
+}
+
 #pragma Public APIs
 
 // Initialize Mixpanel
@@ -94,7 +100,8 @@
 {
     NSString *token = [TiUtils stringValue:[args objectAtIndex:0]];
     NSLog(@"[DEBUG] Mixpanel initWithToken: %@", token);
-    [Mixpanel sharedInstanceWithToken:token];
+    Mixpanel *mixpanel = [Mixpanel sharedInstanceWithToken:token];
+    [mixpanel setDelegate:self];
 }
 
 // Identify current user

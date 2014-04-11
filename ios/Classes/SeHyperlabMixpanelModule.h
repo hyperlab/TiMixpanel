@@ -5,8 +5,9 @@
  * and licensed under the Apache Public License (version 2)
  */
 #import "TiModule.h"
+#import "Mixpanel.h"
 
-@interface SeHyperlabMixpanelModule : TiModule 
+@interface SeHyperlabMixpanelModule : TiModule <MixpanelDelegate>
 {
 }
 
