@@ -254,18 +254,28 @@
 }
 
 // add the device token to receive pushnotifications
-- (void)addPushDeviceToken:(id)args
+// args[0] String: DeviceToken
+- (void)addPushDeviceToken:(id)value
 {
-    NSString *value = [TiUtils stringValue:[args objectAtIndex:0]];
+    ENSURE_SINGLE_ARG(value, NSString);
+    
     NSData *data = [value dataUsingEncoding:NSUTF8StringEncoding];
     [[Mixpanel sharedInstance].people addPushDeviceToken:data];
 }
 
-// set the flush interval
-- (void)setFlushInterval:(id)args
+// get the flush interval
+-(id)flushInterval
 {
-    NSInteger *value = [TiUtils intValue:[args objectAtIndex:0]];
-    [Mixpanel sharedInstance].flushInterval = value;
+    return [Mixpanel sharedInstance].flushInterval;
+}
+
+// set the flush interval
+// args[0] Number: Interval in seconds to flush events to MixPanel
+-(void)setFlushInterval:(id)value
+{
+    ENSURE_SINGLE_ARG(value, NSNumber);
+    
+    [Mixpanel sharedInstance].flushInterval = [TiUtils intValue:value];
 }
 
 @end
