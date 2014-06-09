@@ -95,9 +95,6 @@
     NSString *token = [TiUtils stringValue:[args objectAtIndex:0]];
     NSLog(@"[DEBUG] Mixpanel initWithToken: %@", token);
     [Mixpanel sharedInstanceWithToken:token];
-    
-    // Set default flush interval of 120 seconds
-    [Mixpanel sharedInstance].flushInterval = 120;
 }
 
 // Identify current user
@@ -266,6 +263,12 @@
     [[Mixpanel sharedInstance].people addPushDeviceToken:data];
 }
 
+// Uploads queued data to the Mixpanel server.
+- (void)flush:(id)args
+{
+    [[Mixpanel sharedInstance] flush];
+}
+
 // get the flush interval
 -(id)flushInterval
 {
@@ -279,6 +282,12 @@
     ENSURE_SINGLE_ARG(value, NSNumber);
     
     [Mixpanel sharedInstance].flushInterval = [TiUtils intValue:value];
+}
+
+// Clears all stored properties and distinct IDs. Useful if your app's user logs out.
+- (void)reset:(id)args
+{
+    [[Mixpanel sharedInstance] reset];
 }
 
 @end
