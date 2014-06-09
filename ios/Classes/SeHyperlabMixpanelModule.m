@@ -253,4 +253,41 @@
     [[Mixpanel sharedInstance].people deleteUser];
 }
 
+// add the device token to receive pushnotifications
+// args[0] String: DeviceToken
+- (void)addPushDeviceToken:(id)value
+{
+    ENSURE_SINGLE_ARG(value, NSString);
+    
+    NSData *data = [value dataUsingEncoding:NSUTF8StringEncoding];
+    [[Mixpanel sharedInstance].people addPushDeviceToken:data];
+}
+
+// Uploads queued data to the Mixpanel server.
+- (void)flush:(id)args
+{
+    [[Mixpanel sharedInstance] flush];
+}
+
+// get the flush interval
+-(id)flushInterval
+{
+    return [Mixpanel sharedInstance].flushInterval;
+}
+
+// set the flush interval
+// args[0] Number: Interval in seconds to flush events to MixPanel
+-(void)setFlushInterval:(id)value
+{
+    ENSURE_SINGLE_ARG(value, NSNumber);
+    
+    [Mixpanel sharedInstance].flushInterval = [TiUtils intValue:value];
+}
+
+// Clears all stored properties and distinct IDs. Useful if your app's user logs out.
+- (void)reset:(id)args
+{
+    [[Mixpanel sharedInstance] reset];
+}
+
 @end

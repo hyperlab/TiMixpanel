@@ -1,8 +1,8 @@
-# Mixpanel iOS Module 
+# Mixpanel iOS Module
 
 ## Description
 
-Mixpanel module for Titanium Mobile. This module currently only exposes a subset of the full Mixpanel API. 
+Mixpanel module for Titanium Mobile. This module currently only exposes a subset of the full Mixpanel API.
 
 ## Usage
 
@@ -10,10 +10,17 @@ Add the module to you project, the latest version of the module can be found ins
 
 ## Known Issues
 
-* Info is only delivered when the app is backgrounded/paused
 * Not all the API is exposed at the moment
 
 ## Changes
+
+**0.3**
+- Added support for the following functions:
+    - `flush`: Uploads queued data to the Mixpanel server manually.
+    - `setFlushInterval`: function to set the flush interval in seconds. (By default, queued data is flushed to the Mixpanel servers every minute).
+    - `addPushDeviceToken`: Register the given device to receive push notifications. Make sure to call `identify` first!
+    - `reset`: Clears all stored properties and distinct IDs. Useful if your app's user logs out.
+- Upgraded MixPanel iOS SDK to version 2.3.6.
 
 **0.2**
 - Methods for managing user identity
@@ -23,7 +30,7 @@ Add the module to you project, the latest version of the module can be found ins
 **0.1**
 - Initial release
 
-## Author 
+## Author
 
 **Jonatan Lundin**  
 Web: http://hyperlab.se  
