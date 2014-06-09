@@ -95,6 +95,9 @@
     NSString *token = [TiUtils stringValue:[args objectAtIndex:0]];
     NSLog(@"[DEBUG] Mixpanel initWithToken: %@", token);
     [Mixpanel sharedInstanceWithToken:token];
+    
+    // Set default flush interval of 120 seconds
+    [Mixpanel sharedInstance].flushInterval = 120;
 }
 
 // Identify current user
