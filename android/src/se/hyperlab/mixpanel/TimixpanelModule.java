@@ -104,7 +104,13 @@ public class TimixpanelModule extends KrollModule
 
 	@Kroll.method
 	public void track(@Kroll.argument String name, @Kroll.argument(optional=true) HashMap map) {
-		JSONObject props = new JSONObject();
+		JSONObject props;
+		
+		if(map != null) {
+			props = new JSONObject(map);
+		} else {
+			props = new JSONObject();
+		}
 
 		mixpanel.track(name, props);
 	}
