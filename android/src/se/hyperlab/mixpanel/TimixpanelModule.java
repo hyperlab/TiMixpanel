@@ -15,6 +15,9 @@ import org.appcelerator.kroll.common.Log;
 
 import android.content.Context;
 
+import org.json.JSONObject;
+import java.util.HashMap;
+
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 @Kroll.module(name="Timixpanel", id="se.hyperlab.mixpanel")
@@ -26,9 +29,9 @@ public class TimixpanelModule extends KrollModule
 
 	// You can define constants with @Kroll.constant, for example:
 	// @Kroll.constant public static final String EXTERNAL_NAME = value;
-	
+
 	private MixpanelAPI mixpanel;
-	
+
 	public TimixpanelModule()
 	{
 		super();
@@ -41,6 +44,15 @@ public class TimixpanelModule extends KrollModule
 		// put module init code that needs to run when the application is created
 	}
 
+	@Override
+	public void onDestroy(Activity activity)
+	{
+		// This method is called when the root context is being destroyed
+		mixoanel.flush();
+
+		super.onDestroy(activity);
+	}
+
 	// Methods
 	@Kroll.method
 	public void initWithToken(@Kroll.argument String token)
@@ -48,36 +60,81 @@ public class TimixpanelModule extends KrollModule
 		Log.d(TAG, "Mixpanel initWithToken: " + token);
 		mixpanel = MixpanelAPI.getInstance(TiApplication.getInstance(), token);
 	}
-	
-	@Kroll.method
-	public void identify(Object[] args) {}
 
 	@Kroll.method
-	public void createAlias(Object[] args) {}
+	public void identify(@Kroll.argument String id) {
+		mixpanel.identify(id);
+	}
+
+	// @Kroll.method
+	// public void createAlias(@Kroll.argument String alias) {
+	// 	mixpanel.alias(alias, null);
+	// }
+	//
+	// @Kroll.method
+	// public void createAliasForId(@Kroll.argument String alias, @Kroll.argument String id) {
+	// 	mixpanel.alias(alias, id);
+	// }
 
 	@Kroll.method
-	public void createAliasForId(Object[] args) {}
+	public void registerSuperProperties(@Kroll.argument HashMap map) {
+		JSONObject props = new JSONObject(map);
+
+		mixpanel.registerSuperPropertiesOnce(props);
+	}
 
 	@Kroll.method
-	public void registerSuperProperties(Object[] args) {}
+	public void registerSuperPropertiesOnce(@Kroll.argument HashMap map) {
+		JSONObject props = new JSONObject(map);
+
+		mixpanel.registerSuperProperties(props);
+	}
 
 	@Kroll.method
-	public void registerSuperPropertiesOnce(Object[] args) {}
+	public void track(@Kroll.argument String name, @Kroll.argument(optional=true) HashMap map) {
+		JSONObject props = new JSONObject(map);
+
+		mixpanel.track(name, props);
+	}
 
 	@Kroll.method
-	public void track(Object[] args) {}
+	public void profileSet(@Kroll.argument HashMap map) {
+		JSONObject props = new JSONObject(map);
+
+		// identify must be called before
+		// people properties can be set
+		mixpanel.getPeople().identify( distinctId() );
+
+		// Sets user 13793's "Plan" attribute to "Premium"
+		mixpanel.getPeople().set(props);
+	}
 
 	@Kroll.method
-	public void profileSet(Object[] args) {}
+	public void profileSetOnce(@Kroll.argument HashMap map) {
+		JSONObject props = new JSONObject(map);
 
-	@Kroll.method
-	public void profileSetOnce(Object[] args) {}
+		// identify must be called before
+		// people properties can be set
+		mixpanel.getPeople().identify( distinctId() );
+
+		// Sets user 13793's "Plan" attribute to "Premium"
+		mixpanel.getPeople().setOnce(props);
+	}
 
 	@Kroll.method
 	public void profileAppend(Object[] args) {}
 
 	@Kroll.method
-	public void profileIncrement(Object[] args) {}
+	public void profileIncrement(Kroll.argument HashMap map) {
+		JSONObject props = new JSONObject(map);
+
+		// identify must be called before
+		// people properties can be set
+		mixpanel.getPeople().identify( distinctId() );
+
+		// Sets user 13793's "Plan" attribute to "Premium"
+		mixpanel.getPeople().increment(props);
+	}
 
 	@Kroll.method
 	public void profileTrackCharge(Object[] args) {}
@@ -88,12 +145,21 @@ public class TimixpanelModule extends KrollModule
 	@Kroll.method
 	public void profileDeleteUser(Object[] args) {}
 
+	@Kroll.method
+	public void addPushDeviceToken(Kroll.argument String token) {
+		// identify must be called before
+		// people properties can be set
+		mixpanel.getPeople().identify( distinctId() );
+
+		mixpanel.getPeople().initPushHandling(token);
+	}
+
+
 	// Properties
 	@Kroll.getProperty
 	public String distinctId()
 	{
 		return mixpanel.getDistinctId();
 	}
-
 }
 
