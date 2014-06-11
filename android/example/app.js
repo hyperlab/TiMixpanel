@@ -15,9 +15,12 @@ win.open();
 var mixpanel = require('se.hyperlab.mixpanel');
 mixpanel.initWithToken('YOUR-TOKEN-GOES-HERE');
 
+// Flush queued data every 45 seconds (Instead of the default of 60 seconds)
+// mixpanel.flushInterval = 45;
+
 Ti.API.log('Mixpanel distinctId: ' + mixpanel.distinctId);
 
-// The same as: 
+// The same as:
 // mixpanel.createAliasForId('NEW-TEST-ID', mixpanel.distinctId);
 mixpanel.createAlias('NEW-TEST-ID');
 
@@ -30,14 +33,17 @@ mixpanel.registerSuperProperties({
 });
 
 mixpanel.registerSuperPropertiesOnce({
-  'Affiliate ID': '123abc' 
+  'Affiliate ID': '123abc'
 });
 
 mixpanel.track('App Opened');
 
+// Manually flush data to MixPanel
+mixpanel.flush();
+
 button.addEventListener('click', function () {
-  mixpanel.track('Custom Event', { 
-    'Custom Prop': 'value' 
+  mixpanel.track('Custom Event', {
+    'Custom Prop': 'value'
   });
 });
 
@@ -68,4 +74,5 @@ mixpanel.profileTrackCharge(150);
 mixpanel.profileTrackCharge(100, {
   campaign: '123abc'
 });
+
 

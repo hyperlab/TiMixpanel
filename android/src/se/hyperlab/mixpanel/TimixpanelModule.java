@@ -14,6 +14,10 @@ import org.appcelerator.titanium.TiApplication;
 import org.appcelerator.kroll.common.Log;
 
 import android.content.Context;
+import android.app.Activity;
+
+import org.json.JSONObject;
+import java.util.HashMap;
 
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
@@ -26,9 +30,9 @@ public class TimixpanelModule extends KrollModule
 
 	// You can define constants with @Kroll.constant, for example:
 	// @Kroll.constant public static final String EXTERNAL_NAME = value;
-	
+
 	private MixpanelAPI mixpanel;
-	
+
 	public TimixpanelModule()
 	{
 		super();
@@ -41,43 +45,99 @@ public class TimixpanelModule extends KrollModule
 		// put module init code that needs to run when the application is created
 	}
 
+	@Override
+	public void onDestroy(Activity activity)
+	{
+		// This method is called when the root context is being destroyed
+		mixpanel.flush();
+
+		super.onDestroy(activity);
+	}
+
 	// Methods
 	@Kroll.method
 	public void initWithToken(@Kroll.argument String token)
 	{
 		Log.d(TAG, "Mixpanel initWithToken: " + token);
 		mixpanel = MixpanelAPI.getInstance(TiApplication.getInstance(), token);
+
+		// identify must be called before interacting with People API
+		mixpanel.getPeople().identify( distinctId() );
 	}
-	
-	@Kroll.method
-	public void identify(Object[] args) {}
 
 	@Kroll.method
-	public void createAlias(Object[] args) {}
+	public void identify(@Kroll.argument String id) {
+		mixpanel.identify(id);
+
+		mixpanel.getPeople().identify(id);
+	}
+
+	// TODO: Upgrade MixPanel SDK to 4.1+ to support alias()
+	// @Kroll.method
+	// public void createAlias(@Kroll.argument String alias) {
+	// 	mixpanel.alias(alias, null);
+	// }
+	//
+	// @Kroll.method
+	// public void createAliasForId(@Kroll.argument String alias, @Kroll.argument String id) {
+	// 	mixpanel.alias(alias, id);
+	// }
 
 	@Kroll.method
-	public void createAliasForId(Object[] args) {}
+	public void registerSuperProperties(@Kroll.argument HashMap map) {
+		JSONObject props = new JSONObject(map);
+
+		mixpanel.registerSuperPropertiesOnce(props);
+	}
 
 	@Kroll.method
-	public void registerSuperProperties(Object[] args) {}
+	public void registerSuperPropertiesOnce(@Kroll.argument HashMap map) {
+		JSONObject props = new JSONObject(map);
+
+		mixpanel.registerSuperProperties(props);
+	}
 
 	@Kroll.method
-	public void registerSuperPropertiesOnce(Object[] args) {}
+	public void unregisterSuperProperty(@Kroll.argument String name) {
+		mixpanel.unregisterSuperProperty(name);
+	}
 
 	@Kroll.method
-	public void track(Object[] args) {}
+	public void track(@Kroll.argument String name, @Kroll.argument(optional=true) HashMap map) {
+		JSONObject props;
+		
+		if(map != null) {
+			props = new JSONObject(map);
+		} else {
+			props = new JSONObject();
+		}
+
+		mixpanel.track(name, props);
+	}
 
 	@Kroll.method
-	public void profileSet(Object[] args) {}
+	public void profileSet(@Kroll.argument HashMap map) {
+		JSONObject props = new JSONObject(map);
+
+		mixpanel.getPeople().set(props);
+	}
 
 	@Kroll.method
-	public void profileSetOnce(Object[] args) {}
+	public void profileSetOnce(@Kroll.argument HashMap map) {
+		JSONObject props = new JSONObject(map);
+
+		mixpanel.getPeople().setOnce(props);
+	}
 
 	@Kroll.method
-	public void profileAppend(Object[] args) {}
+	public void profileAppend(String name, Object value) {
+		mixpanel.getPeople().append(name, value);
+	}
 
 	@Kroll.method
-	public void profileIncrement(Object[] args) {}
+	public void profileIncrement(HashMap map) {
+		mixpanel.getPeople().increment(map);
+	}
 
 	@Kroll.method
 	public void profileTrackCharge(Object[] args) {}
@@ -88,12 +148,23 @@ public class TimixpanelModule extends KrollModule
 	@Kroll.method
 	public void profileDeleteUser(Object[] args) {}
 
+	@Kroll.method
+	public void addPushDeviceToken(String token) {
+		mixpanel.getPeople().initPushHandling(token);
+	}
+
 	// Properties
 	@Kroll.getProperty
 	public String distinctId()
 	{
 		return mixpanel.getDistinctId();
 	}
+
+	// @Kroll.getProperty
+	// public int flushInterval()
+	// {
+	// 	return MPConfig.getInstance(iApplication.getInstance()).getFlushInterval();
+	// }
 
 }
 
