@@ -14,6 +14,7 @@ import org.appcelerator.titanium.TiApplication;
 import org.appcelerator.kroll.common.Log;
 
 import android.content.Context;
+import android.app.Activity;
 
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -48,7 +49,7 @@ public class TimixpanelModule extends KrollModule
 	public void onDestroy(Activity activity)
 	{
 		// This method is called when the root context is being destroyed
-		mixoanel.flush();
+		mixpanel.flush();
 
 		super.onDestroy(activity);
 	}
@@ -59,13 +60,19 @@ public class TimixpanelModule extends KrollModule
 	{
 		Log.d(TAG, "Mixpanel initWithToken: " + token);
 		mixpanel = MixpanelAPI.getInstance(TiApplication.getInstance(), token);
+
+		// identify must be called before interacting with People API
+		mixpanel.getPeople().identify( distinctId() );
 	}
 
 	@Kroll.method
 	public void identify(@Kroll.argument String id) {
 		mixpanel.identify(id);
+
+		mixpanel.getPeople().identify(id);
 	}
 
+	// TODO: Upgrade MixPanel SDK to 4.1+ to support alias()
 	// @Kroll.method
 	// public void createAlias(@Kroll.argument String alias) {
 	// 	mixpanel.alias(alias, null);
@@ -91,8 +98,13 @@ public class TimixpanelModule extends KrollModule
 	}
 
 	@Kroll.method
+	public void unregisterSuperProperty(@Kroll.argument String name) {
+		mixpanel.unregisterSuperProperty(name);
+	}
+
+	@Kroll.method
 	public void track(@Kroll.argument String name, @Kroll.argument(optional=true) HashMap map) {
-		JSONObject props = new JSONObject(map);
+		JSONObject props = new JSONObject();
 
 		mixpanel.track(name, props);
 	}
@@ -101,11 +113,6 @@ public class TimixpanelModule extends KrollModule
 	public void profileSet(@Kroll.argument HashMap map) {
 		JSONObject props = new JSONObject(map);
 
-		// identify must be called before
-		// people properties can be set
-		mixpanel.getPeople().identify( distinctId() );
-
-		// Sets user 13793's "Plan" attribute to "Premium"
 		mixpanel.getPeople().set(props);
 	}
 
@@ -113,27 +120,17 @@ public class TimixpanelModule extends KrollModule
 	public void profileSetOnce(@Kroll.argument HashMap map) {
 		JSONObject props = new JSONObject(map);
 
-		// identify must be called before
-		// people properties can be set
-		mixpanel.getPeople().identify( distinctId() );
-
-		// Sets user 13793's "Plan" attribute to "Premium"
 		mixpanel.getPeople().setOnce(props);
 	}
 
 	@Kroll.method
-	public void profileAppend(Object[] args) {}
+	public void profileAppend(String name, Object value) {
+		mixpanel.getPeople().append(name, value);
+	}
 
 	@Kroll.method
-	public void profileIncrement(Kroll.argument HashMap map) {
-		JSONObject props = new JSONObject(map);
-
-		// identify must be called before
-		// people properties can be set
-		mixpanel.getPeople().identify( distinctId() );
-
-		// Sets user 13793's "Plan" attribute to "Premium"
-		mixpanel.getPeople().increment(props);
+	public void profileIncrement(HashMap map) {
+		mixpanel.getPeople().increment(map);
 	}
 
 	@Kroll.method
@@ -146,14 +143,9 @@ public class TimixpanelModule extends KrollModule
 	public void profileDeleteUser(Object[] args) {}
 
 	@Kroll.method
-	public void addPushDeviceToken(Kroll.argument String token) {
-		// identify must be called before
-		// people properties can be set
-		mixpanel.getPeople().identify( distinctId() );
-
+	public void addPushDeviceToken(String token) {
 		mixpanel.getPeople().initPushHandling(token);
 	}
-
 
 	// Properties
 	@Kroll.getProperty
@@ -161,5 +153,12 @@ public class TimixpanelModule extends KrollModule
 	{
 		return mixpanel.getDistinctId();
 	}
+
+	// @Kroll.getProperty
+	// public int flushInterval()
+	// {
+	// 	return MPConfig.getInstance(iApplication.getInstance()).getFlushInterval();
+	// }
+
 }
 
