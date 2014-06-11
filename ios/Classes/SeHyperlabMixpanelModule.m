@@ -95,6 +95,12 @@
     NSString *token = [TiUtils stringValue:[args objectAtIndex:0]];
     NSLog(@"[DEBUG] Mixpanel initWithToken: %@", token);
     [Mixpanel sharedInstanceWithToken:token];
+    
+    //Turn this off so the survey doesn't pop up automatically. It crashes the app atm (Storyboards are not supported)
+    [Mixpanel sharedInstance].showSurveyOnActive = NO;
+    
+    //Turn this off so the notification doesn't pop up automatically. It crashes the app atm (Storyboards are not supported)
+    [Mixpanel sharedInstance].showNotificationOnActive = NO;
 }
 
 // Identify current user
