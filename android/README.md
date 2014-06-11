@@ -11,6 +11,7 @@ Add the module to you project, the latest version of the module can be found ins
 ## Known Issues
 
 * Not all the API is exposed at the moment
+* Flush interval can not be changed
 
 ## Handling push notifications
 
@@ -35,6 +36,7 @@ mixpanel.addPushDeviceToken('YOUR-TOKEN');
     - `registerSuperPropertiesOnce(Object)`
     - `track(String, Object)`
     - `profileSet(Object)`
+    - `profileAppend(String, Object)`
     - `profileSetOnce(Object)`
     - `profileIncrement(Object)`
     - `addPushDeviceToken(String)`
