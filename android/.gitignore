@@ -2,7 +2,6 @@ tmp
 libs
 bin
 build
-*.zip
 .apt_generated
 .classpath
 build.properties

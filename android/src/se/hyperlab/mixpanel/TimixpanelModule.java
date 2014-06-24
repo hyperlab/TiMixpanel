@@ -24,13 +24,7 @@ import com.mixpanel.android.mpmetrics.MixpanelAPI;
 @Kroll.module(name="Timixpanel", id="se.hyperlab.mixpanel")
 public class TimixpanelModule extends KrollModule
 {
-
-	// Standard Debugging variables
 	private static final String TAG = "TimixpanelModule";
-
-	// You can define constants with @Kroll.constant, for example:
-	// @Kroll.constant public static final String EXTERNAL_NAME = value;
-
 	private MixpanelAPI mixpanel;
 
 	public TimixpanelModule()
@@ -41,10 +35,20 @@ public class TimixpanelModule extends KrollModule
 	@Kroll.onAppCreate
 	public static void onAppCreate(TiApplication app)
 	{
-		Log.d(TAG, "inside onAppCreate");
 		// put module init code that needs to run when the application is created
 	}
 
+	// Flush when app goed into background
+    @Override
+	public void onPause(Activity activity)
+	{
+		// This method is called when the root context is being suspended
+		mixpanel.flush();
+
+		super.onPause(activity);
+	}
+
+    // Flush when app is closed
 	@Override
 	public void onDestroy(Activity activity)
 	{
@@ -64,6 +68,16 @@ public class TimixpanelModule extends KrollModule
 		// identify must be called before interacting with People API
 		mixpanel.getPeople().identify( distinctId() );
 	}
+
+	@Kroll.method
+	public void initPushHandling(@Kroll.argument String senderId)
+	{
+		Log.d(TAG, "Mixpanel initPushHandling: " + senderId);
+
+		mixpanel.getPeople().initPushHandling(senderId);
+	}
+
+
 
 	@Kroll.method
 	public void identify(@Kroll.argument String id) {
@@ -105,7 +119,7 @@ public class TimixpanelModule extends KrollModule
 	@Kroll.method
 	public void track(@Kroll.argument String name, @Kroll.argument(optional=true) HashMap map) {
 		JSONObject props;
-		
+
 		if(map != null) {
 			props = new JSONObject(map);
 		} else {
@@ -150,7 +164,12 @@ public class TimixpanelModule extends KrollModule
 
 	@Kroll.method
 	public void addPushDeviceToken(String token) {
-		mixpanel.getPeople().initPushHandling(token);
+		Log.d(TAG, "This function is not needed on Android");
+	}
+
+    @Kroll.method
+	public void flush() {
+		mixpanel.flush();
 	}
 
 	// Properties
@@ -167,4 +186,3 @@ public class TimixpanelModule extends KrollModule
 	// }
 
 }
-

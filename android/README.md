@@ -19,15 +19,24 @@ Add the module to you project, the latest version of the module can be found ins
 
 To enable push handling in your app, read MixPanel's documentation to setup GCM correctly: https://mixpanel.com/help/reference/android#push_configure
 
-After you have successfully integrated GCM into your app, you can send the retrieved GCM token to MixPanel by calling:
+After you have successfully integrated GCM into your app, you only have to give MixPanel your sender id:
 
 ````javascript
-mixpanel.addPushDeviceToken('YOUR-TOKEN');
+mixpanel.initWithToken('YOUR-TOKEN');
+mixpanel.initPushHandling('YOUR-SENDER-ID');
 ```
 
 
 
 ## Changes
+
+**0.4**
+- Fixed handling of push notifications
+
+**0.3**
+- Cleanup and added install referrer and survey activity to manifest file
+- Updated documentation and example app.js
+- Made properties for `track` optional
 
 **0.2**
 - Added support for the following functions:
