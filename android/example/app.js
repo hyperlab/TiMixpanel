@@ -15,6 +15,9 @@ win.open();
 var mixpanel = require('se.hyperlab.mixpanel');
 mixpanel.initWithToken('YOUR-TOKEN-GOES-HERE');
 
+// Enable GCM
+mixpanel.initPushHandling('YOUR-SENDER-ID-GOES-HERE');
+
 // Flush queued data every 45 seconds (Instead of the default of 60 seconds)
 // mixpanel.flushInterval = 45;
 
@@ -74,5 +77,3 @@ mixpanel.profileTrackCharge(150);
 mixpanel.profileTrackCharge(100, {
   campaign: '123abc'
 });
-
-
