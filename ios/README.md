@@ -14,6 +14,9 @@ Add the module to you project, the latest version of the module can be found ins
 
 ## Changes
 
+**0.4**
+- Disabled Surveys and In-App Notifications, because they currently crash the app. (It is unfortunately not possible to include Storyboards in native modules)
+
 **0.3**
 - Added support for the following functions:
     - `flush`: Uploads queued data to the Mixpanel server manually.
