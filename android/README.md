@@ -53,11 +53,16 @@ mixpanel.initPushHandling('YOUR-SENDER-ID');
 **0.1**
 - Initial release
 
-## Author
+## Contributors
 
 **Jonatan Lundin**  
 Web: http://hyperlab.se  
 Twitter: @mr_lundis  
+
+**Timan Rebel**
+Web: http://timanrebel.nl
+Twitter: @timanrebel
+
 
 Initial code based on the [Titanium-Mixpanel-Module](https://github.com/meeech/Titanium-Mixpanel-Module) by @meeech.
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3350F93B-D85F-4B90-8950-01D4462593B0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TiMixpanel</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C945D8D4-2350-4C8B-AAB3-070FC302B3CE</key>
+		<string>ssh://github.com/Rebelcorp/TiMixpanel.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ios/TiMixpanel.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C945D8D4-2350-4C8B-AAB3-070FC302B3CE</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/Rebelcorp/TiMixpanel.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C945D8D4-2350-4C8B-AAB3-070FC302B3CE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C945D8D4-2350-4C8B-AAB3-070FC302B3CE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TiMixpanel</string>
+		</dict>
+	</array>
+</dict>
+</plist>

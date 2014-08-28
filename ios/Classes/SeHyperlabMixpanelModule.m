@@ -50,12 +50,6 @@
 
 #pragma mark Cleanup
 
--(void)dealloc
-{
-    // release any resources that have been retained by the module
-    [super dealloc];
-}
-
 #pragma mark Internal Memory Management
 
 -(void)didReceiveMemoryWarning:(NSNotification*)notification
@@ -270,9 +264,9 @@
 }
 
 // get the flush interval
--(id)flushInterval
+-(int)flushInterval
 {
-    return [Mixpanel sharedInstance].flushInterval;
+    return NUMINT([Mixpanel sharedInstance].flushInterval);
 }
 
 // set the flush interval
