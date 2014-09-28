@@ -14,6 +14,10 @@ Add the module to you project, the latest version of the module can be found ins
 
 ## Changes
 
+**0.5**
+- Device tokens were not correctly send to Mixpanel, breaking Push Notification support
+- Updated to latest version of Mixpanel iOS SDK, to support A/B tests
+
 **0.4**
 - Disabled Surveys and In-App Notifications, because they currently crash the app. (It is unfortunately not possible to include Storyboards in native modules)
 
