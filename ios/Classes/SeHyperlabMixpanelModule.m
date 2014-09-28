@@ -5,13 +5,48 @@
  * and licensed under the Apache Public License (version 2)
  */
 #import "SeHyperlabMixpanelModule.h"
+#import "TiApp.h"
 #import "TiBase.h"
 #import "TiHost.h"
 #import "TiUtils.h"
 
 #import "Mixpanel.h"
+#import "JRSwizzle.h"
+
+// Create a category which adds new methods to TiApp
+@implementation TiApp (TiMixpanel)
+
+- (void)application:(UIApplication *)application mixpanelDidRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // If you're successful, you should see the following output from titanium
+    NSLog(@"[DEBUG] TiMixpanel#didRegisterForRemoteNotificationsWithDeviceToken");
+    NSLog(@"%@", deviceToken);
+    
+    // be sure to call the original method
+    // note: swizzle will 'swap' implementations, so this is calling the original method,
+    // not the current method... so this will not infinitely recurse. promise.
+    [self application:application mixpanelDidRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+    
+    [[Mixpanel sharedInstance].people addPushDeviceToken:deviceToken];
+}
+
+@end
+
 
 @implementation SeHyperlabMixpanelModule
+
+// This is the magic bit... Method Swizzling
+// important that this happens in the 'load' method, otherwise the methods
+// don't get swizzled early enough to actually hook into app startup.
++ (void)load {
+    NSError *error = nil;
+    
+    [TiApp jr_swizzleMethod:@selector(application:didRegisterForRemoteNotificationsWithDeviceToken:)
+                 withMethod:@selector(application:mixpanelDidRegisterForRemoteNotificationsWithDeviceToken:)
+                      error:&error];
+    if(error)
+        NSLog(@"[WARN] Cannot swizzle application:openURL:sourceApplication:annotation: %@", error);
+}
 
 #pragma mark Internal
 
@@ -257,10 +292,7 @@
 // args[0] String: DeviceToken
 - (void)addPushDeviceToken:(id)value
 {
-    ENSURE_SINGLE_ARG(value, NSString);
-    
-    NSData *data = [value dataUsingEncoding:NSUTF8StringEncoding];
-    [[Mixpanel sharedInstance].people addPushDeviceToken:data];
+    NSLog(@"[DEBUG] Mixpanel addPushDeviceToken is deprecated, since the device token is now automatically send to Mixpanel");
 }
 
 // Uploads queued data to the Mixpanel server.

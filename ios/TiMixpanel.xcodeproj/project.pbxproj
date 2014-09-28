@@ -34,6 +34,8 @@
 		BB07B7C818F4300800305D36 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB07B7C718F4300800305D36 /* SystemConfiguration.framework */; };
 		BB07B7CA18F4301100305D36 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB07B7C918F4301100305D36 /* CoreTelephony.framework */; };
 		BB07B7CC18F4301A00305D36 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB07B7CB18F4301A00305D36 /* Accelerate.framework */; };
+		BC3B242D19D849480049B6A7 /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = BC3B242B19D849480049B6A7 /* JRSwizzle.h */; };
+		BC3B242E19D849480049B6A7 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3B242C19D849480049B6A7 /* JRSwizzle.m */; };
 		BCA5937219AF2F6800A30670 /* _MPTweakBindObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA5930119AF2F6700A30670 /* _MPTweakBindObserver.h */; };
 		BCA5937319AF2F6800A30670 /* _MPTweakBindObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA5930219AF2F6700A30670 /* _MPTweakBindObserver.m */; };
 		BCA5937419AF2F6800A30670 /* Mixpanel.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA5930419AF2F6700A30670 /* Mixpanel.h */; };
@@ -166,6 +168,8 @@
 		BB07B7C718F4300800305D36 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BB07B7C918F4301100305D36 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		BB07B7CB18F4301A00305D36 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		BC3B242B19D849480049B6A7 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
+		BC3B242C19D849480049B6A7 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		BCA5930119AF2F6700A30670 /* _MPTweakBindObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MPTweakBindObserver.h; sourceTree = "<group>"; };
 		BCA5930219AF2F6700A30670 /* _MPTweakBindObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MPTweakBindObserver.m; sourceTree = "<group>"; };
 		BCA5930319AF2F6700A30670 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -354,9 +358,20 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		BC3B242A19D849480049B6A7 /* JRSwizzle */ = {
+			isa = PBXGroup;
+			children = (
+				BC3B242B19D849480049B6A7 /* JRSwizzle.h */,
+				BC3B242C19D849480049B6A7 /* JRSwizzle.m */,
+			);
+			name = JRSwizzle;
+			path = Vendor/JRSwizzle;
+			sourceTree = "<group>";
+		};
 		BCA592FF19AF2F3400A30670 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				BC3B242A19D849480049B6A7 /* JRSwizzle */,
 				BCA5930019AF2F6700A30670 /* Mixpanel */,
 			);
 			name = Vendor;
@@ -523,6 +538,7 @@
 				BCA593DA19AF2F6800A30670 /* UIView+MPSnapshotImage.h in Headers */,
 				BCA593C319AF2F6800A30670 /* MPTweakStore.h in Headers */,
 				BCA593CB19AF2F6800A30670 /* MPValueTransformers.h in Headers */,
+				BC3B242D19D849480049B6A7 /* JRSwizzle.h in Headers */,
 				BCA5938619AF2F6800A30670 /* MPABTestDesignerDisconnectMessage.h in Headers */,
 				BCA5937419AF2F6800A30670 /* Mixpanel.h in Headers */,
 				24DE9E1111C5FE74003F90F6 /* SeHyperlabMixpanelModuleAssets.h in Headers */,
@@ -667,6 +683,7 @@
 				BCA593AA19AF2F6800A30670 /* MPObjectSerializer.m in Sources */,
 				BCA5937D19AF2F6800A30670 /* MPABTestDesignerClearRequestMessage.m in Sources */,
 				BCA593C119AF2F6800A30670 /* MPTweakInline.m in Sources */,
+				BC3B242E19D849480049B6A7 /* JRSwizzle.m in Sources */,
 				BCA593CF19AF2F6800A30670 /* MPWebSocket.m in Sources */,
 				BCA593DB19AF2F6800A30670 /* UIView+MPSnapshotImage.m in Sources */,
 				BCA5939319AF2F6800A30670 /* MPBOOLToNSNumberValueTransformer.m in Sources */,
