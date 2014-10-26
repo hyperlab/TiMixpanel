@@ -43,10 +43,9 @@ Add the module to you project, the latest version of the module can be found ins
 Web: http://hyperlab.se  
 Twitter: @mr_lundis  
 
-**Timan Rebel**
-Web: http://timanrebel.nl
-Twitter: @timanrebel
-
+**Timan Rebel**  
+Web: http://timanrebel.nl  
+Twitter: @timanrebel  
 
 Initial code based on the [Titanium-Mixpanel-Module](https://github.com/meeech/Titanium-Mixpanel-Module) by @meeech.
 
