@@ -29,6 +29,11 @@ mixpanel.initPushHandling('YOUR-SENDER-ID');
 
 
 ## Changes
+**0.5**
+- Upgraded Mixpnale SDK to 4.4.0
+- Added support for the following functions:
+    - `createAlias(String)`
+    - `createAliasForId(String, String)`
 
 **0.4**
 - Fixed handling of push notifications
