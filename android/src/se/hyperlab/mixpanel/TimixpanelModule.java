@@ -86,16 +86,15 @@ public class TimixpanelModule extends KrollModule
 		mixpanel.getPeople().identify(id);
 	}
 
-	// TODO: Upgrade MixPanel SDK to 4.1+ to support alias()
-	// @Kroll.method
-	// public void createAlias(@Kroll.argument String alias) {
-	// 	mixpanel.alias(alias, null);
-	// }
-	//
-	// @Kroll.method
-	// public void createAliasForId(@Kroll.argument String alias, @Kroll.argument String id) {
-	// 	mixpanel.alias(alias, id);
-	// }
+	 @Kroll.method
+	 public void createAlias(@Kroll.argument String alias) {
+	 	mixpanel.alias(alias, null);
+	 }
+	
+	 @Kroll.method
+	 public void createAliasForId(@Kroll.argument String alias, @Kroll.argument String id) {
+	 	mixpanel.alias(alias, id);
+	 }
 
 	@Kroll.method
 	public void registerSuperProperties(@Kroll.argument HashMap map) {
