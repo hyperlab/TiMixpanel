@@ -10,29 +10,29 @@
 	<string>TiMixpanel</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C945D8D4-2350-4C8B-AAB3-070FC302B3CE</key>
-		<string>ssh://github.com/Rebelcorp/TiMixpanel.git</string>
+		<key>80E4EF6E513B344E61F380C06704702F2AFE64B3</key>
+		<string>github.com:Rebelcorp/TiMixpanel.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>ios/TiMixpanel.xcodeproj/project.xcworkspace</string>
+	<string>ios/TiMixpanel.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C945D8D4-2350-4C8B-AAB3-070FC302B3CE</key>
+		<key>80E4EF6E513B344E61F380C06704702F2AFE64B3</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/Rebelcorp/TiMixpanel.git</string>
+	<string>github.com:Rebelcorp/TiMixpanel.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C945D8D4-2350-4C8B-AAB3-070FC302B3CE</string>
+	<string>80E4EF6E513B344E61F380C06704702F2AFE64B3</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C945D8D4-2350-4C8B-AAB3-070FC302B3CE</string>
+			<string>80E4EF6E513B344E61F380C06704702F2AFE64B3</string>
 			<key>IDESourceControlWCCName</key>
 			<string>TiMixpanel</string>
 		</dict>
