@@ -14,6 +14,9 @@ Add the module to you project, the latest version of the module can be found ins
 
 ## Changes
 
+**0.6**
+- Added support for 64-bit
+
 **0.5**
 - Device tokens were not correctly send to Mixpanel, breaking Push Notification support
 - Updated to latest version of Mixpanel iOS SDK, to support A/B tests
