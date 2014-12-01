@@ -15,7 +15,7 @@ Add the module to you project, the latest version of the module can be found ins
 
 ## Surveys and In-App Notifications
 
-Since version 0.6 surveys and in-app notifications are supported. At the moment automatically showing of these surveys and notifications is not yet supported, so you have to request them manually:
+Since version 0.6 surveys and in-app notifications are supported. At the moment automatically showing of these surveys and notifications is not yet supported, so you have to request them manually, after a Window has been opened:
 
 ```
 mixpanel.showSurveyIfAvailable();
