@@ -13,6 +13,16 @@ Add the module to you project, the latest version of the module can be found ins
 * Not all the API is exposed at the moment
 * Flush interval can not be changed
 
+## Surveys and In-App Notifications
+
+Since version 0.6 surveys and in-app notifications are supported. At the moment automatically showing of these surveys and notifications is not yet supported, so you have to request them manually:
+
+```
+mixpanel.showSurveyIfAvailable();
+```
+
+Note: Notifications are treated the same way as surveys in Mixpanel, so they will be displayed even if it seems you only request a survey.
+
 ## Handling push notifications
 
 @iamyellow's gcm.js module is a good place to integrate GCM into Titanium: https://github.com/iamyellow/gcm.js
@@ -29,8 +39,12 @@ mixpanel.initPushHandling('YOUR-SENDER-ID');
 
 
 ## Changes
+**0.6**
+- Upgraded Mixpanel SDK to 4.4.1
+- Added support for Surveys and In-App Notifications via the following functions:
+    - `showSurveyIfAvailable()`
 **0.5**
-- Upgraded Mixpnale SDK to 4.4.0
+- Upgraded Mixpanel SDK to 4.4.0
 - Added support for the following functions:
     - `createAlias(String)`
     - `createAliasForId(String, String)`
