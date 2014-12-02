@@ -64,9 +64,6 @@ public class TimixpanelModule extends KrollModule
 	{
 		Log.d(TAG, "Mixpanel initWithToken: " + token);
 		mixpanel = MixpanelAPI.getInstance(TiApplication.getInstance(), token);
-
-		// identify must be called before interacting with People API
-		mixpanel.getPeople().identify( distinctId() );
 	}
 
 	@Kroll.method
@@ -77,13 +74,9 @@ public class TimixpanelModule extends KrollModule
 		mixpanel.getPeople().initPushHandling(senderId);
 	}
 
-
-
 	@Kroll.method
 	public void identify(@Kroll.argument String id) {
 		mixpanel.identify(id);
-
-		mixpanel.getPeople().identify(id);
 	}
 
 	 @Kroll.method
