@@ -55,9 +55,17 @@ mixpanel.initWithToken('YOUR-TOKEN');
 mixpanel.initPushHandling('YOUR-SENDER-ID');
 ```
 
-
-
 ## Changes
+
+**0.7**
+- **Breaking change**: `identify` is no longer called automatically. If you want to use People Analytics with your own user ids, you have to call `identify` manually from now on.
+- Added support for the following functions:
+    - `profileTrackCharge(String name, Object properties)`
+    - `profileClearCharges()`
+    - `profileDeleteUser()`
+    - `showSurveyById(id)`
+    - `showNotificationById(id)`
+
 **0.6**
 - Upgraded Mixpanel SDK to 4.4.1
 - Added support for Surveys and In-App Notifications via the following functions:

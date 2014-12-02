@@ -75,7 +75,7 @@ public class TimixpanelModule extends KrollModule
 	}
 
 	@Kroll.method
-	public void identify(@Kroll.argument String id) {
+	public void identify(@Kroll.argument String id) {        
 		mixpanel.identify(id);
 	}
 
@@ -146,13 +146,27 @@ public class TimixpanelModule extends KrollModule
 	}
 
 	@Kroll.method
-	public void profileTrackCharge(Object[] args) {}
+	public void profileTrackCharge(@Kroll.argument double amount, @Kroll.argument(optional=true) HashMap map) {
+        JSONObject props;
+        
+        if(map != null) {
+            props = new JSONObject(map);
+        } else {
+            props = new JSONObject();
+        }
+        
+        mixpanel.getPeople().trackCharge(amount, props);
+    }
 
 	@Kroll.method
-	public void profileClearCharges(Object[] args) {}
+	public void profileClearCharges() {
+        mixpanel.getPeople().clearCharges();
+    }
 
 	@Kroll.method
-	public void profileDeleteUser(Object[] args) {}
+	public void profileDeleteUser() {
+        mixpanel.getPeople().deleteUser();
+    }
 
 	@Kroll.method
 	public void addPushDeviceToken(String token) {
@@ -167,6 +181,16 @@ public class TimixpanelModule extends KrollModule
     @Kroll.method
     public void showNotificationIfAvailable() {
         mixpanel.getPeople().showNotificationIfAvailable(TiApplication.getAppCurrentActivity());
+    }
+    
+    @Kroll.method
+    public void showSurveyById(@Kroll.argument int id) {
+        mixpanel.getPeople().showSurveyById(id, TiApplication.getAppCurrentActivity());
+    }
+    
+    @Kroll.method
+    public void showNotificationById(@Kroll.argument int id) {
+        mixpanel.getPeople().showNotificationById(id, TiApplication.getAppCurrentActivity());
     }
 
     @Kroll.method
