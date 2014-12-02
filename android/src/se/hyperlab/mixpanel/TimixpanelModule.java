@@ -165,6 +165,16 @@ public class TimixpanelModule extends KrollModule
 	public void addPushDeviceToken(String token) {
 		Log.d(TAG, "This function is not needed on Android");
 	}
+    
+    @Kroll.method
+    public void showSurveyIfAvailable() {
+        mixpanel.getPeople().showSurveyIfAvailable(TiApplication.getAppCurrentActivity());
+    }
+    
+    @Kroll.method
+    public void showNotificationIfAvailable() {
+        mixpanel.getPeople().showNotificationIfAvailable(TiApplication.getAppCurrentActivity());
+    }
 
     @Kroll.method
 	public void flush() {

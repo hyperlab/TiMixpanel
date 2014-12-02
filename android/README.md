@@ -13,6 +13,35 @@ Add the module to you project, the latest version of the module can be found ins
 * Not all the API is exposed at the moment
 * Flush interval can not be changed
 
+## Surveys and In-App Notifications
+
+Since version 0.6 surveys and in-app notifications are supported. At the moment automatically showing of these surveys and notifications is not yet supported, so you have to request them manually, after a Window has been opened:
+
+```
+mixpanel.showSurveyIfAvailable();
+```
+
+or
+
+```
+mixpanel.showNotificationIfAvailable();
+```
+
+To make testing of surveys and in-app notifications easier, you can enable verbose logging of the SDK and the Test Mode (show surveys and notifications multiple time) by adding the following lines to the Android section of your `tiapp.xml`:
+
+```
+<android xmlns:android="http://schemas.android.com/apk/res/android">
+	<manifest>
+		<application>
+			<meta-data android:name="com.mixpanel.android.MPConfig.TestMode" android:value="true" />
+			<meta-data android:name="com.mixpanel.android.MPConfig.EnableDebugLogging" android:value="true" />
+	   </application>
+	</manifest>
+</android>
+```
+
+More info on surveys and in-app notifications: https://mixpanel.com/help/reference/android#surveys
+
 ## Handling push notifications
 
 @iamyellow's gcm.js module is a good place to integrate GCM into Titanium: https://github.com/iamyellow/gcm.js
@@ -29,8 +58,14 @@ mixpanel.initPushHandling('YOUR-SENDER-ID');
 
 
 ## Changes
+**0.6**
+- Upgraded Mixpanel SDK to 4.4.1
+- Added support for Surveys and In-App Notifications via the following functions:
+    - `showSurveyIfAvailable()`
+    - `showNotificationIfAvailable()`
+
 **0.5**
-- Upgraded Mixpnale SDK to 4.4.0
+- Upgraded Mixpanel SDK to 4.4.0
 - Added support for the following functions:
     - `createAlias(String)`
     - `createAliasForId(String, String)`
