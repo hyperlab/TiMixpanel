@@ -8,11 +8,6 @@ Mixpanel module for Titanium Mobile. This module currently only exposes a subset
 
 Add the module to you project, the latest version of the module can be found inside the dist folder. See example/app.js for usage example.
 
-## Known Issues
-
-* Not all the API is exposed at the moment
-* Flush interval can not be changed
-
 ## Surveys and In-App Notifications
 
 Since version 0.6 surveys and in-app notifications are supported. At the moment automatically showing of these surveys and notifications is not yet supported, so you have to request them manually, after a Window has been opened:
