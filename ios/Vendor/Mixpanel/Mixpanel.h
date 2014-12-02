@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+
 #import <UIKit/UIKit.h>
 
 @class    MixpanelPeople;
@@ -190,6 +191,18 @@
  @property
 
  @abstract
+ Determines the time, in seconds, that a mini notification will remain on
+ the screen before automatically hiding itself.
+
+ @discussion
+ Defaults to 6.0.
+ */
+@property (atomic) CGFloat miniNotificationPresentationTime;
+
+/*!
+ @property
+
+ @abstract
  The a MixpanelDelegate object that can be used to assert fine-grain control
  over Mixpanel network activity.
 
@@ -352,7 +365,8 @@
  Property keys must be <code>NSString</code> objects and values must be
  <code>NSString</code>, <code>NSNumber</code>, <code>NSNull</code>,
  <code>NSArray</code>, <code>NSDictionary</code>, <code>NSDate</code> or
- <code>NSURL</code> objects.
+ <code>NSURL</code> objects. If the event is being timed, the timer will
+ stop and be added as a property.
 
  @param event           event name
  @param properties      properties dictionary
@@ -465,6 +479,45 @@
  Returns the currently set super properties.
  */
 - (NSDictionary *)currentSuperProperties;
+
+/*!
+ @method
+
+ @abstract
+ Starts a timer that will be stopped and added as a property when a
+ corresponding event is tracked.
+
+ @discussion
+ This method is intended to be used in advance of events that have
+ a duration. For example, if a developer were to track an "Image Upload" event
+ she might want to also know how long the upload took. Calling this method
+ before the upload code would implicitly cause the <code>track</code>
+ call to record its duration.
+
+ <pre>
+ // begin timing the image upload
+ [mixpanel timeEvent:@"Image Upload"];
+
+ // upload the image
+ [self uploadImageWithSuccessHandler:^{
+
+    // track the event
+    [mixpanel track:@"Image Upload"];
+ }];
+ </pre>
+
+ @param event   a string, identical to the name of the event that will be tracked
+
+ */
+- (void)timeEvent:(NSString *)event;
+
+/*!
+ @method
+
+ @abstract
+ Clears all current event timers.
+ */
+- (void)clearTimedEvents;
 
 /*!
  @method
@@ -583,6 +636,9 @@
 - (void)joinExperiments;
 
 - (void)createAlias:(NSString *)alias forDistinctID:(NSString *)distinctID;
+
+
+- (NSString *)libVersion;
 
 @end
 

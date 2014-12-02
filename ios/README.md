@@ -8,11 +8,12 @@ Mixpanel module for Titanium Mobile. This module currently only exposes a subset
 
 Add the module to you project, the latest version of the module can be found inside the dist folder. See example/app.js for usage example.
 
-## Known Issues
-
-* Not all the API is exposed at the moment
-
 ## Changes
+
+**0.7**
+- Upgraded to Mixpanel SDK 2.6.0
+- Allow Mixpanel customers to define new elements to be tracked in their app dynamically without having to re-release to the app store.
+- You can track the time it took for an action to occur, such as an image upload or a comment post, using `timeEvent(String name)`. This will mark the "start" of your action, which you can then finish with a track call. The time duration is then recorded in the "Duration" property.
 
 **0.6**
 - Added support for 64-bit
