@@ -10,21 +10,19 @@ Add the module to you project, the latest version of the module can be found ins
 
 ## Surveys and In-App Notifications
 
-Since version 0.6 surveys and in-app notifications are supported. At the moment automatically showing of these surveys and notifications is not yet supported, so you have to request them manually, after a Window has been opened:
+Since version 0.6 both surveys and in-app notifications are supported, they are however not displayed automatically. For now you need to request them manually by running the following code after opening any window:
 
-```
+```js
+// To show any new surveys
 mixpanel.showSurveyIfAvailable();
-```
 
-or
-
-```
+// To show any new notifications
 mixpanel.showNotificationIfAvailable();
 ```
 
-To make testing of surveys and in-app notifications easier, you can enable verbose logging of the SDK and the Test Mode (show surveys and notifications multiple time) by adding the following lines to the Android section of your `tiapp.xml`:
+To make testing of surveys and in-app notifications easier, you can enable verbose logging for the Mixpanel API and  "Test Mode" (shows surveys and notifications multiple times) by adding the following lines to the Android section of your `tiapp.xml`:
 
-```
+```xml
 <android xmlns:android="http://schemas.android.com/apk/res/android">
 	<manifest>
 		<application>
