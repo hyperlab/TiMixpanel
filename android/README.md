@@ -21,7 +21,11 @@ Since version 0.6 surveys and in-app notifications are supported. At the moment 
 mixpanel.showSurveyIfAvailable();
 ```
 
-Note: Notifications are treated the same way as surveys in Mixpanel, so they will be displayed even if it seems you only request a survey.
+or
+
+```
+mixpanel.showNotificationIfAvailable();
+```
 
 ## Handling push notifications
 
@@ -43,6 +47,8 @@ mixpanel.initPushHandling('YOUR-SENDER-ID');
 - Upgraded Mixpanel SDK to 4.4.1
 - Added support for Surveys and In-App Notifications via the following functions:
     - `showSurveyIfAvailable()`
+    - `showNotificationIfAvailable()`
+
 **0.5**
 - Upgraded Mixpanel SDK to 4.4.0
 - Added support for the following functions:
