@@ -8,11 +8,6 @@ Mixpanel module for Titanium Mobile. This module currently only exposes a subset
 
 Add the module to you project, the latest version of the module can be found inside the dist folder. See example/app.js for usage example.
 
-## Known Issues
-
-* Not all the API is exposed at the moment
-* Flush interval can not be changed
-
 ## Surveys and In-App Notifications
 
 Since version 0.6 both surveys and in-app notifications are supported, they are however not displayed automatically. For now you need to request them manually by running the following code after opening any window:
@@ -53,9 +48,17 @@ mixpanel.initWithToken('YOUR-TOKEN');
 mixpanel.initPushHandling('YOUR-SENDER-ID');
 ```
 
-
-
 ## Changes
+
+**0.7**
+- **Breaking change**: `identify` is no longer called automatically. If you want to use People Analytics with your own user ids, you have to call `identify` manually from now on.
+- Added support for the following functions:
+    - `profileTrackCharge(String name, Object properties)`
+    - `profileClearCharges()`
+    - `profileDeleteUser()`
+    - `showSurveyById(id)`
+    - `showNotificationById(id)`
+
 **0.6**
 - Upgraded Mixpanel SDK to 4.4.1
 - Added support for Surveys and In-App Notifications via the following functions:

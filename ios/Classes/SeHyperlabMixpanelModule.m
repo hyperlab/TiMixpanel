@@ -210,6 +210,17 @@
     }
 }
 
+// Time an event
+// args[0] String: Event Name
+-(void)timeEvent:(id)args
+{
+    NSString *event;
+    
+    ENSURE_ARG_AT_INDEX(event, args, 0, NSString);
+    
+    [[Mixpanel sharedInstance] timeEvent:event];
+}
+
 // Set props in user profile
 // args[0] Dictionary: Properties
 - (void)profileSet:(id)args
