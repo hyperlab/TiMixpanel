@@ -27,6 +27,21 @@ or
 mixpanel.showNotificationIfAvailable();
 ```
 
+To make testing of surveys and in-app notifications easier, you can enable verbose logging of the SDK and the Test Mode (show surveys and notifications multiple time) by adding the following lines to the Android section of your `tiapp.xml`:
+
+```
+<android xmlns:android="http://schemas.android.com/apk/res/android">
+	<manifest>
+		<application>
+			<meta-data android:name="com.mixpanel.android.MPConfig.TestMode" android:value="true" />
+			<meta-data android:name="com.mixpanel.android.MPConfig.EnableDebugLogging" android:value="true" />
+	   </application>
+	</manifest>
+</android>
+```
+
+More info on surveys and in-app notifications: https://mixpanel.com/help/reference/android#surveys
+
 ## Handling push notifications
 
 @iamyellow's gcm.js module is a good place to integrate GCM into Titanium: https://github.com/iamyellow/gcm.js
