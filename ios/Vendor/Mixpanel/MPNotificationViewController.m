@@ -2,16 +2,15 @@
 #error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag on this file.
 #endif
 
-#import "MPNotificationViewController.h"
-
+#import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
+#import "MPCategoryHelpers.h"
+#import "MPLogging.h"
 #import "MPNotification.h"
+#import "MPNotificationViewController.h"
 #import "UIColor+MPColor.h"
 #import "UIImage+MPAverageColor.h"
 #import "UIImage+MPImageEffects.h"
-#import "UIView+MPSnapshotImage.h"
-
-#import <QuartzCore/QuartzCore.h>
-#import <UIKit/UIKit.h>
 
 #define MPNotifHeight 65.0f
 
@@ -99,7 +98,7 @@
                 self.imageHeight.constant = image.size.height;
                 self.imageView.image = image;
             } else {
-                NSLog(@"image failed to load from data: %@", self.notification.image);
+                MixpanelError(@"image failed to load from data: %@", self.notification.image);
             }
         }
 
@@ -316,9 +315,20 @@
 - (void)viewWillLayoutSubviews
 {
     UIView *parentView = self.view.superview;
-
+    CGRect parentFrame;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
+    parentFrame = parentView.frame;
+#elif __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    if ([self respondsToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+        parentFrame = parentView.frame;
+    } else {
+        double angle = [self angleForInterfaceOrientation:[self interfaceOrientation]];
+        parentFrame = CGRectApplyAffineTransform(parentView.frame, CGAffineTransformMakeRotation((float)angle));
+    }
+#else
     double angle = [self angleForInterfaceOrientation:[self interfaceOrientation]];
-    CGRect parentFrame = CGRectApplyAffineTransform(parentView.frame, CGAffineTransformMakeRotation((float)angle));
+    parentFrame = CGRectApplyAffineTransform(parentView.frame, CGAffineTransformMakeRotation((float)angle));
+#endif
 
     self.view.frame = CGRectMake(0.0f, parentFrame.size.height - MPNotifHeight, parentFrame.size.width, MPNotifHeight * 3.0f);
 
@@ -394,8 +404,21 @@
     UIView *topView = [self getTopView];
     if (topView) {
 
+        CGRect topFrame;
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
+        topFrame = topView.frame;
+#elif __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+        if ([self respondsToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+            topFrame = topView.frame;
+        } else {
+            double angle = [self angleForInterfaceOrientation:[self interfaceOrientation]];
+            topFrame = CGRectApplyAffineTransform(topView.frame, CGAffineTransformMakeRotation((float)angle));
+        }
+#else
         double angle = [self angleForInterfaceOrientation:[self interfaceOrientation]];
-        CGRect topFrame = CGRectApplyAffineTransform(topView.frame, CGAffineTransformMakeRotation((float)angle));
+        topFrame = CGRectApplyAffineTransform(topView.frame, CGAffineTransformMakeRotation((float)angle));
+#endif
 
         [topView addSubview:self.view];
 
@@ -450,8 +473,22 @@
             duration = 0.0f;
         }
 
+        UIView *parentView = self.view.superview;
+        CGRect parentFrame;
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
+        parentFrame = parentView.frame;
+#elif __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+        if ([self respondsToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+            parentFrame = parentView.frame;
+        } else {
+            double angle = [self angleForInterfaceOrientation:[self interfaceOrientation]];
+            parentFrame = CGRectApplyAffineTransform(parentView.frame, CGAffineTransformMakeRotation((float)angle));
+        }
+#else
         double angle = [self angleForInterfaceOrientation:[self interfaceOrientation]];
-        CGRect parentFrame = CGRectApplyAffineTransform(self.view.superview.frame, CGAffineTransformMakeRotation((float)angle));
+        parentFrame = CGRectApplyAffineTransform(parentView.frame, CGAffineTransformMakeRotation((float)angle));
+#endif
 
         [UIView animateWithDuration:duration animations:^{
             self.view.frame = CGRectMake(0.0f, parentFrame.size.height, parentFrame.size.width, MPNotifHeight * 3.0f);
