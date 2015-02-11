@@ -50,6 +50,9 @@ mixpanel.initPushHandling('YOUR-SENDER-ID');
 
 ## Changes
 
+**0.8**
+- Added missing People Analytics `identify` call
+
 **0.7**
 - **Breaking change**: `identify` is no longer called automatically. If you want to use People Analytics with your own user ids, you have to call `identify` manually from now on.
 - Added support for the following functions:
@@ -103,6 +106,10 @@ Twitter: @mr_lundis
 **Timan Rebel**  
 Web: http://timanrebel.nl  
 Twitter: @timanrebel  
+
+**Torgny Bjers**  
+Web: http://www.xorcode.com  
+Twitter: @torgnybjers  
 
 Initial code based on the [Titanium-Mixpanel-Module](https://github.com/meeech/Titanium-Mixpanel-Module) by @meeech.
 
