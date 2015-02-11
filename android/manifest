@@ -2,12 +2,12 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 0.7
+version: 0.8
 apiversion: 2
 description: Mixpanel integration for Titanium Mobile
 author: Jonatan Lundin
 license: MIT
-copyright: Copyright (C) 2014 Hyperlab AB
+copyright: Copyright (C) 2014-2015 Hyperlab AB
 
 
 # these should not be edited

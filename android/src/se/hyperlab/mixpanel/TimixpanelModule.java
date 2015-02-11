@@ -77,6 +77,7 @@ public class TimixpanelModule extends KrollModule
 	@Kroll.method
 	public void identify(@Kroll.argument String id) {        
 		mixpanel.identify(id);
+		mixpanel.getPeople().identify(id);
 	}
 
 	 @Kroll.method
