@@ -50,7 +50,6 @@ mixpanel.initPushHandling('YOUR-SENDER-ID');
 
 ## Changes
 
-<<<<<<< HEAD
 **0.9**
 - Module compiled against Titanium SDK 3.5.1.GA to ensure that applications built with 3.5.1.GA do not crash on Lollipop.
 
