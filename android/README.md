@@ -50,8 +50,12 @@ mixpanel.initPushHandling('YOUR-SENDER-ID');
 
 ## Changes
 
+<<<<<<< HEAD
 **0.9**
 - Module compiled against Titanium SDK 3.5.1.GA to ensure that applications built with 3.5.1.GA do not crash on Lollipop.
+
+**0.8**
+- Added missing People Analytics `identify` call
 
 **0.7**
 - **Breaking change**: `identify` is no longer called automatically. If you want to use People Analytics with your own user ids, you have to call `identify` manually from now on.
@@ -131,6 +135,10 @@ Twitter: @mr_lundis
 **Timan Rebel**  
 Web: http://timanrebel.nl  
 Twitter: @timanrebel  
+
+**Torgny Bjers**  
+Web: http://www.xorcode.com  
+Twitter: @torgnybjers  
 
 Initial code based on the [Titanium-Mixpanel-Module](https://github.com/meeech/Titanium-Mixpanel-Module) by @meeech.
 
