@@ -8,14 +8,6 @@ Mixpanel module for Titanium Mobile. This module currently only exposes a subset
 
 Add the module to you project, the latest version of the module can be found inside the dist folder. See example/app.js for usage example.
 
-**iOS**
-
-Before build the module, you'll have to compile some storyboards needed by Mixpanel SDK to support Surveys and in-app Notifications. Just run:
-```bash
-cd ios
-bash compile-storyboards.sh
-```
-
 ## Known Issues
 
 * Not all the API is exposed at the moment
