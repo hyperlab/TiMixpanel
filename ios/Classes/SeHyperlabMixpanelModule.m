@@ -121,15 +121,37 @@
 // args[0] String: Mixpanel API Token
 - (void)initWithToken:(id)args
 {
+    NSDictionary *props;
+    BOOL* showSurveyOnActiveFlag = YES;
+    BOOL* showNotificationOnActiveFlag = YES;
+
+    ENSURE_ARG_OR_NIL_AT_INDEX(props, args, 1, NSDictionary);
+
+    if (props != nil) {
+        showSurveyOnActiveFlag = [TiUtils boolValue:@"showSurveyOnActive" properties:props def:YES];
+        showNotificationOnActiveFlag = [TiUtils boolValue:@"showNotificationOnActive" properties:props def:YES];
+    }
+
     NSString *token = [TiUtils stringValue:[args objectAtIndex:0]];
+
     NSLog(@"[DEBUG] Mixpanel initWithToken: %@", token);
     [Mixpanel sharedInstanceWithToken:token];
+
+    if (showSurveyOnActiveFlag == NO)     {
+        NSLog(@"[DEBUG] Mixpanel disabling show notifications on active");
+    } else {
+        NSLog(@"[DEBUG] Mixpanel enabling show notifications on active");
+    }
+
+    if (showNotificationOnActiveFlag == NO)     {
+        NSLog(@"[DEBUG] Mixpanel disabling show notifications on active");
+    } else {
+        NSLog(@"[DEBUG] Mixpanel enabling show notifications on active");
+    }
+
+    [Mixpanel sharedInstance].showSurveyOnActive = showSurveyOnActiveFlag;
     
-    //Turn this off so the survey doesn't pop up automatically. It crashes the app atm (Storyboards are not supported)
-    [Mixpanel sharedInstance].showSurveyOnActive = NO;
-    
-    //Turn this off so the notification doesn't pop up automatically. It crashes the app atm (Storyboards are not supported)
-    [Mixpanel sharedInstance].showNotificationOnActive = NO;
+    [Mixpanel sharedInstance].showNotificationOnActive = showNotificationOnActiveFlag;
 }
 
 // Identify current user
@@ -331,6 +353,18 @@
 - (void)reset:(id)args
 {
     [[Mixpanel sharedInstance] reset];
+}
+
+// Show notification
+- (void)showNotification:(id)args
+{
+    [[Mixpanel sharedInstance] showNotification];
+}
+
+// Show survey
+- (void)showSurvey:(id)args
+{
+    [[Mixpanel sharedInstance] showSurvey];
 }
 
 @end

@@ -1,11 +1,23 @@
 // Simple test UI
 var win = Ti.UI.createWindow({
-  backgroundColor:'white'
+  backgroundColor:'white',
+  top: 0,
+  bottom: 0,
+  layout: 'vertical'
 });
-var button = Ti.UI.createButton({
+var trackEventButton = Ti.UI.createButton({
+  top: 20,
   title: 'Track event'
 });
-win.add(button);
+var notificationButton = Ti.UI.createButton({
+    title: 'Show Notification'
+});
+var surveyButton = Ti.UI.createButton({
+    title: 'Show Survey'
+});
+win.add(trackEventButton);
+win.add(notificationButton);
+win.add(surveyButton);
 win.open();
 
 
@@ -13,7 +25,13 @@ win.open();
 // See: https://mixpanel.com/help/reference/ios
 
 var mixpanel = require('se.hyperlab.mixpanel');
-mixpanel.initWithToken('YOUR-TOKEN-GOES-HERE');
+
+// The second parameter is optional. showSurveyOnActive and showNotificationOnActive
+// are true by default.
+mixpanel.initWithToken('YOUR-TOKEN-GOES-HERE', {
+  showSurveyOnActive: false,
+  showNotificationOnActive: false
+});
 
 // Flush queued data every 45 seconds (Instead of the default of 60 seconds)
 mixpanel.flushInterval = 45;
@@ -41,12 +59,17 @@ mixpanel.track('App Opened');
 // Manually flush data to MixPanel
 mixpanel.flush();
 
-button.addEventListener('click', function () {
+trackEventButton.addEventListener('click', function () {
   mixpanel.track('Custom Event', {
     'Custom Prop': 'value'
   });
 });
-
+notificationButton.addEventListener('click', function () {
+  mixpanel.showNotification();
+});
+surveyButton.addEventListener('click', function () {
+  mixpanel.showSurvey();
+});
 
 // User Profiles
 mixpanel.profileSet({
