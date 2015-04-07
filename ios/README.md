@@ -59,7 +59,7 @@ Web: http://timanrebel.nl
 Twitter: @timanrebel  
 
 **Iñaki Abete**  
-Web: http://github.com/inakiabt
+Web: http://github.com/inakiabt  
 Twitter: @inakiabt  
 
 Initial code based on the [Titanium-Mixpanel-Module](https://github.com/meeech/Titanium-Mixpanel-Module) by @meeech.
