@@ -50,6 +50,9 @@ mixpanel.initPushHandling('YOUR-SENDER-ID');
 
 ## Changes
 
+**0.9**
+- Module compiled against Titanium SDK 3.5.1.GA to ensure that applications built with 3.5.1.GA do not crash on Lollipop.
+
 **0.8**
 - Added missing People Analytics `identify` call
 
@@ -96,6 +99,31 @@ mixpanel.initPushHandling('YOUR-SENDER-ID');
 
 **0.1**
 - Initial release
+
+## Building the module
+
+In order to build this module you need `ant` and the proper SDK/NDK packages installed on your system. You need to copy `build.properties.example` to `build.properties` and create a `.classpath` file in this directory. A sample `.classpath` file is included below.
+
+Make sure that you compile against 3.5.1.GA or above.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src"/>
+  <classpathentry kind="src" path="build/.apt_generated"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+
+  <classpathentry kind="lib" path="<ANDROID-SDK>/platforms/android-10/android.jar"/>
+  <classpathentry kind="lib" path="<LIBRARY-PATH>/Titanium/mobilesdk/osx/3.5.1.GA/android/titanium.jar"/>
+  <classpathentry kind="lib" path="<LIBRARY-PATH>/Titanium/mobilesdk/osx/3.5.1.GA/android/kroll-common.jar"/>
+  <classpathentry kind="lib" path="<LIBRARY-PATH>/Titanium/mobilesdk/osx/3.5.1.GA/android/kroll-apt.jar"/>
+
+  <classpathentry kind="lib" path="<ANDROID-SDK>/extras/google/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar"/>
+
+  <classpathentry kind="lib" path="lib/mixpanel-android-4.4.1.jar"/>
+  <classpathentry kind="output" path="bin"/>
+</classpath>
+```
 
 ## Contributors
 
