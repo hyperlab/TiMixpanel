@@ -29,6 +29,7 @@
 		37E797331C9B435200EF4330 /* MPNotification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC4E7DB01A2DEAAC0095BF27 /* MPNotification.storyboard */; };
 		37E797341C9B435200EF4330 /* MPSurvey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC4E7DC71A2DEAAC0095BF27 /* MPSurvey.storyboard */; };
 		37E797361C9B435D00EF4330 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E797351C9B435D00EF4330 /* CoreFoundation.framework */; };
+		37E7973A1C9B4EE900EF4330 /* storyboards.bundle in Sources */ = {isa = PBXBuildFile; fileRef = 37E7972D1C9B433500EF4330 /* storyboards.bundle */; };
 		AA747D9F0F9514B9006C5449 /* SeHyperlabMixpanel_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* SeHyperlabMixpanel_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 		BB07B7C218F42FA400305D36 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB07B7C118F42FA400305D36 /* UIKit.framework */; };
@@ -762,6 +763,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37E7973A1C9B4EE900EF4330 /* storyboards.bundle in Sources */,
 				BC4E7E341A2DEAAC0095BF27 /* MPObjectSerializer.m in Sources */,
 				BC4E7E3B1A2DEAAC0095BF27 /* MPPropertyDescription.m in Sources */,
 				BC4E7E2B1A2DEAAC0095BF27 /* MPNotificationViewController.m in Sources */,
@@ -1033,8 +1035,8 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = platform/iphone;
-				CONFIGURATION_TEMP_DIR = platform/iphone;
+				CONFIGURATION_BUILD_DIR = assets;
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1081,8 +1083,8 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = platform/iphone;
-				CONFIGURATION_TEMP_DIR = platform/iphone;
+				CONFIGURATION_BUILD_DIR = assets;
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1143,6 +1145,7 @@
 				37E797321C9B433500EF4330 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
