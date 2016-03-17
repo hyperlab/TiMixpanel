@@ -1315,13 +1315,14 @@ static Mixpanel *sharedInstance = nil;
     // This fixes the NSInternalInconsistencyException caused when we try present a
     // survey on a viewcontroller that is itself being presented.
     if (![presentingViewController isBeingPresented] && ![presentingViewController isBeingDismissed]) {
-
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MPSurvey" bundle:nil];
-        MPSurveyNavigationController *controller = [storyboard instantiateViewControllerWithIdentifier:@"MPSurveyNavigationController"];
-        controller.survey = survey;
-        controller.delegate = self;
-        controller.backgroundImage = [presentingViewController.view mp_snapshotImage];
-        [presentingViewController presentViewController:controller animated:YES completion:nil];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MPSurvey" bundle:[NSBundle bundleWithIdentifier:@"se.hyperlab.mixpanel.storyboards"]];
+            MPSurveyNavigationController *controller = [storyboard instantiateViewControllerWithIdentifier:@"MPSurveyNavigationController"];
+            controller.survey = survey;
+            controller.delegate = self;
+            controller.backgroundImage = [presentingViewController.view mp_snapshotImage];
+            [presentingViewController presentViewController:controller animated:YES completion:nil];
+        });
     }
 }
 
@@ -1525,15 +1526,17 @@ static Mixpanel *sharedInstance = nil;
     UIViewController *presentingViewController = [Mixpanel topPresentedViewController];
 
     if (![presentingViewController isBeingPresented] && ![presentingViewController isBeingDismissed]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MPNotification" bundle:nil];
-        MPTakeoverNotificationViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"MPNotificationViewController"];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MPNotification" bundle:[NSBundle bundleWithIdentifier:@"se.hyperlab.mixpanel.storyboards"]];
+            MPTakeoverNotificationViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"MPNotificationViewController"];
 
-        controller.backgroundImage = [presentingViewController.view mp_snapshotImage];
-        controller.notification = notification;
-        controller.delegate = self;
-        self.notificationViewController = controller;
+            controller.backgroundImage = [presentingViewController.view mp_snapshotImage];
+            controller.notification = notification;
+            controller.delegate = self;
+            self.notificationViewController = controller;
 
-        [presentingViewController presentViewController:controller animated:NO completion:nil];
+            [presentingViewController presentViewController:controller animated:NO completion:nil];
+        });
         return YES;
     } else {
         return NO;
