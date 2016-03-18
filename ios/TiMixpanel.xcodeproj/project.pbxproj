@@ -26,6 +26,7 @@
 		24DD6CFA1134B3F500162E58 /* SeHyperlabMixpanelModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DD6CF81134B3F500162E58 /* SeHyperlabMixpanelModule.m */; };
 		24DE9E1111C5FE74003F90F6 /* SeHyperlabMixpanelModuleAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DE9E0F11C5FE74003F90F6 /* SeHyperlabMixpanelModuleAssets.h */; };
 		24DE9E1211C5FE74003F90F6 /* SeHyperlabMixpanelModuleAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE9E1011C5FE74003F90F6 /* SeHyperlabMixpanelModuleAssets.m */; };
+		374CC4421C9C7F5100505E0E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC4E7D781A2DEAAB0095BF27 /* Media.xcassets */; };
 		37E797331C9B435200EF4330 /* MPNotification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC4E7DB01A2DEAAC0095BF27 /* MPNotification.storyboard */; };
 		37E797341C9B435200EF4330 /* MPSurvey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC4E7DC71A2DEAAC0095BF27 /* MPSurvey.storyboard */; };
 		37E797361C9B435D00EF4330 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E797351C9B435D00EF4330 /* CoreFoundation.framework */; };
@@ -715,6 +716,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374CC4421C9C7F5100505E0E /* Media.xcassets in Resources */,
 				37E797331C9B435200EF4330 /* MPNotification.storyboard in Resources */,
 				37E797341C9B435200EF4330 /* MPSurvey.storyboard in Resources */,
 			);
