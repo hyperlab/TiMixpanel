@@ -1315,13 +1315,40 @@ static Mixpanel *sharedInstance = nil;
     // This fixes the NSInternalInconsistencyException caused when we try present a
     // survey on a viewcontroller that is itself being presented.
     if (![presentingViewController isBeingPresented] && ![presentingViewController isBeingDismissed]) {
+        NSLog(@"[INFO] Launching MPSurvey");
+//        dispatch_async(dispatch_get_main_queue(), ^{
 
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MPSurvey" bundle:nil];
-        MPSurveyNavigationController *controller = [storyboard instantiateViewControllerWithIdentifier:@"MPSurveyNavigationController"];
-        controller.survey = survey;
-        controller.delegate = self;
-        controller.backgroundImage = [presentingViewController.view mp_snapshotImage];
-        [presentingViewController presentViewController:controller animated:YES completion:nil];
+        //    NSBundle *bundle = [NSBundle bundleWithIdentifier:@"se.hyperlab.mixpanel.storyboards"];
+        //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"se.hyperlab.mixpanel/0.8/platform/iphone/storyboards.bundle"];
+        
+        //todo: this is a hack here to load our bundle resource which is manually placed in the Titanium projects app/assets/iphone folder. I cannot figure out why the .bundle will not be published in the .app file on Ti build even when it is properly placed within the module assets folder! It works for com.mirasense.scanditsdk 4.12.1 and i see no differences.
+        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"mixpanel_storyboards.bundle"];
+        NSBundle *bundle = [NSBundle bundleWithPath:path];
+        
+        
+            if(bundle == nil) {
+                    NSLog(@"[INFO] Failed to load storyboard bundle");
+            } else {
+                    NSLog(@"[INFO] Loaded storyboard bundle");
+                @try {
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MPSurvey" bundle:bundle];
+                    
+                    NSLog(@"[INFO] Loaded storyboard");
+                    
+                    MPSurveyNavigationController *controller = [storyboard instantiateViewControllerWithIdentifier:@"MPSurveyNavigationController"];
+                    controller.survey = survey;
+                    controller.delegate = self;
+                    controller.backgroundImage = [presentingViewController.view mp_snapshotImage];
+                    [presentingViewController presentViewController:controller animated:YES completion:nil];
+                }
+                @catch (NSException *exception) {
+                    MixpanelDebug(@"ex: %@", [exception description]);
+                }
+                @finally {
+                    
+                }
+            }
+//        });
     }
 }
 
@@ -1525,15 +1552,43 @@ static Mixpanel *sharedInstance = nil;
     UIViewController *presentingViewController = [Mixpanel topPresentedViewController];
 
     if (![presentingViewController isBeingPresented] && ![presentingViewController isBeingDismissed]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MPNotification" bundle:nil];
-        MPTakeoverNotificationViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"MPNotificationViewController"];
+        NSLog(@"[INFO] Launching MPNotification");
+//        dispatch_async(dispatch_get_main_queue(), ^{
 
-        controller.backgroundImage = [presentingViewController.view mp_snapshotImage];
-        controller.notification = notification;
-        controller.delegate = self;
-        self.notificationViewController = controller;
+        //    NSBundle *bundle = [NSBundle bundleWithIdentifier:@"se.hyperlab.mixpanel.storyboards"];
+        //    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"se.hyperlab.mixpanel/0.8/platform/iphone/storyboards.bundle"];
+        
+        //todo: this is a hack here to load our bundle resource which is manually placed in the Titanium projects app/assets/iphone folder. I cannot figure out why the .bundle will not be published in the .app file on Ti build even when it is properly placed within the module assets folder! It works for com.mirasense.scanditsdk 4.12.1 and i see no differences.
+        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"mixpanel_storyboards.bundle"];
+        NSBundle *bundle = [NSBundle bundleWithPath:path];
+        
+        
+            if(bundle == nil) {
+                NSLog(@"[INFO] Failed to load storyboard bundle");
+            } else {
+                @try
+                {
+                    NSLog(@"[INFO] Loaded storyboard bundle");
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MPNotification" bundle:bundle];
+                    NSLog(@"[INFO] Loaded storyboard");
+                    
+                    MPTakeoverNotificationViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"MPNotificationViewController"];
+                
+                    controller.backgroundImage = [presentingViewController.view mp_snapshotImage];
+                    controller.notification = notification;
+                    controller.delegate = self;
+                    self.notificationViewController = controller;
 
-        [presentingViewController presentViewController:controller animated:NO completion:nil];
+                    [presentingViewController presentViewController:controller animated:NO completion:nil];
+                }
+                @catch (NSException *exception) {
+                    MixpanelDebug(@"ex: %@", [exception description]);
+                }
+                @finally {
+
+                }
+            }
+//        });
         return YES;
     } else {
         return NO;
