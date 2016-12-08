@@ -2,8 +2,8 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 0.9
-apiversion: 2
+version: 1.0
+apiversion: 3
 description: Mixpanel integration for Titanium Mobile
 author: Jonatan Lundin
 license: MIT
@@ -15,7 +15,7 @@ name: TiMixpanel
 moduleid: se.hyperlab.mixpanel
 guid: 7031f78e-4cf3-4b12-98f0-99325bd1987e
 platform: android
-minsdk: 3.2.2.GA
+minsdk: 6.0.0.GA
 
 # Build Mixpanel SDK, to not conflict with Titanium's R.java
 respackage: com.mixpanel.android
