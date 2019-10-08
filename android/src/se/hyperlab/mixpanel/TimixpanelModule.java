@@ -175,18 +175,8 @@ public class TimixpanelModule extends KrollModule
 	}
     
     @Kroll.method
-    public void showSurveyIfAvailable() {
-        mixpanel.getPeople().showSurveyIfAvailable(TiApplication.getAppCurrentActivity());
-    }
-    
-    @Kroll.method
     public void showNotificationIfAvailable() {
         mixpanel.getPeople().showNotificationIfAvailable(TiApplication.getAppCurrentActivity());
-    }
-    
-    @Kroll.method
-    public void showSurveyById(@Kroll.argument int id) {
-        mixpanel.getPeople().showSurveyById(id, TiApplication.getAppCurrentActivity());
     }
     
     @Kroll.method
@@ -197,6 +187,11 @@ public class TimixpanelModule extends KrollModule
     @Kroll.method
 	public void flush() {
 		mixpanel.flush();
+	}
+
+	@Kroll.method
+	public void reset() {
+		mixpanel.reset();
 	}
 
 	// Properties
